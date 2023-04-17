@@ -2,29 +2,28 @@
 
     // set up ========================
     
-    var express  					= require('express');
-    var app      						= express();                               // create our app w/ express
-    var path 						= require('path');
+    var express  				= require('express');
+    var app      				= express();                               // create our app w/ express
+    var path 					= require('path');
     var mongoose 				= require('mongoose'), Schema = mongoose.Schema;                     // mongoose for mongodb
     var morgan 					= require('morgan');             // log requests to the console (express4)
     var bodyParser 				= require('body-parser');    // pull information from HTML POST (express4)
-    var methodOverride 		= require('method-override'); // simulate DELETE and PUT (express4)
+    var methodOverride 		    = require('method-override'); // simulate DELETE and PUT (express4)
 	var nodemailer 				= require('nodemailer');
 	var scheduler 				= require('node-schedule');
-	var multer 						= require('multer');
-	var AppointmentPicker	= require('appointment-picker');
+	var multer 					= require('multer');
+	var AppointmentPicker	    = require('appointment-picker');
 	var moment					= require('moment');
-	var xmlify 						= require('xmlify');
-	var convert 					= require('xml-js');
+	var xmlify 					= require('xmlify');
+	var convert 				= require('xml-js');
 	var MobileDetect 			= require('mobile-detect');
-	var MobileResult 			= 1;
-	var http 							= require('http');
-    var CryptoJS 					= require("crypto-js");
+	var http 					= require('http');
+    var CryptoJS 				= require("crypto-js");
     var FTPClient 				= require('ftp');
-			
+	var MobileResult 			= 1;
+
     const http2 				= require("https");
 	const qs 					= require("querystring");   
-
 	const NTP 					= require('ntp-time').Client;
    
 	/*--

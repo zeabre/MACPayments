@@ -2201,10 +2201,10 @@ angular.module('scotchApp')
 			publicKey: 'pk_live_602f96d2JvWWGPl576e4'
 			  });
 				yoco.showPopup({
-				  amountInCents: 2799,
+				  amountInCents: 299,
 				  currency: 'ZAR',
-				  name: 'Your Store or Product',
-				  description: 'Awesome description',
+				  name: 'Melkbos Athletic Club Store',
+				  description: 'Test transaction - Gawie',
 				  callback: function (result) {
 					// This function returns a token that your server can use to capture a payment
 					if (result.error) {
