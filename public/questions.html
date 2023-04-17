@@ -1,0 +1,118 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+			<div class="navbar-form navbar-left">
+					<h5>Current questions: {{ questions.length }}</h5>
+			</div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+		  <form class="navbar-form navbar-right">
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+		  </form>
+		  <ul class="nav navbar-nav navbar-right">
+
+             <li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+								<li><a href="" ng-click="findQuestionss('all')" ng-class="{active:activeTab === 'main'}">All</a></li>
+								<li role="separator" class="divider"></li>
+								<li ng-repeat="question in questions"><a href="" ng-click="findQuestions(questions.qs_name)" ng-class="{active:activeTab === 'main'}">{{questions.qs_name}}</a></li>
+						</ul>
+              </li>
+		  </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>		
+								
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker1"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+							<thead>
+								<th><small>Question ID</small></th>
+								<th><small>Question Name</small></th>
+								<th><small>Question Date</small></th>
+								
+								
+								<th><small>Action</small></th>
+							</thead>
+							
+						 <tbody ng-repeat="question in questions|filter:search">
+									  <tr>
+										
+								 
+								 	<td ng-hide="question.edit"><h6><small>{{question.qs_ID}}</small></h6></td>
+										<td ng-show="question.edit"><h6><small><input type="text" ng-model="question.qs_ID"></small></h6></td>
+
+										<td ng-hide="question.edit"><h6><small>{{question.qs_name}}</small></h6></td>
+										<td ng-show="question.edit"><h6><small><input type="text" ng-model="question.qs_name"></small></h6></td>
+
+										<td ng-hide="question.edit"><h6><small>{{question.qs_date}}</small></h6></td>
+										<td ng-show="question.edit"><h6><small><input type="text" ng-model="question.qs_date"></small></h6></td>
+
+										
+										
+								   	
+
+											<td ng-hide="question.edit"> 
+											  <a href="" class="fa fa-calendar-plus-o" ng-click="showM(1,'Appointment',getRealIndex(question),'1')"></a>
+											  <a href="" class="fa fa-file-text-o" ng-click="showM(3,'Detail',getRealIndex(question),'1')"></a>
+											  
+											  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(question),'1')"></a>
+											  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(question))"></a>
+											  <a href="" class="fa fa-trash-o" ng-click="deleteQuestion(question._id)"></a>
+											</td>
+											<td ng-show="question.edit">
+											  <a href="" class="fa fa-save" ng-click="updatemember(getRealIndex(question))"></a>
+											  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(question))"></a>
+											</td>
+									  </tr>
+							</tbody>
+			
+						</table>
+
+						</td>
+					</tr>
+					
+				</table>
+	
+
+
+	</div>
+
+   <!-- FORM TO CREATE TODOS -->
+        <div id="member-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" name="ID" class="form-control input-sm text-center" placeholder="Question ID" ng-model="formData.qs_ID"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question Name" ng-model="formData.qs_name"></br>
+             
+                  
+ 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createQuestion()">Add</button>
+                </form>
+            </div>
+            
+
+            
+        </div>
+        
+		
+        
+	
+

@@ -1,0 +1,98 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+          <div class="navbar-form navbar-left">
+
+            <h5>Current technicians: {{ techs.length }}</h5>
+          </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		
+		  <form class="navbar-form navbar-right">
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+		  </form>
+
+	</div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+		  <table class="table table-condensed">
+			<thead>
+				
+				<th><small>Technician</small></th>
+				<th><small>ID</small></th>
+				<th><small>PR number</small></th>
+				<th><small>Email</small></th>
+				<th><small>Telephone</small></th>
+				<th><small>Location</small></th>
+		  
+			</thead>
+
+		   <tbody ng-repeat="tech in techs|filter:search">
+			  <tr>
+				
+		 
+				<td ng-hide="tech.edit"><h6><small><div class="newline">{{tech.tech_name}}</div></small></h6></td>
+				<td ng-show="tech.edit"><h6><small><input type="text" ng-model="tech.tech_name"></small></h6></td>
+		 
+								<td ng-hide="tech.edit"><h6><small>{{tech.tech_id}}</small></h6></td>
+								<td ng-show="tech.edit"><h6><small><input type="text" ng-model="tech.tech_id"></small></h6></td>
+
+								<td ng-hide="tech.edit"><h6><small>{{tech.tech_pr}}</small></h6></td>
+								<td ng-show="tech.edit"><h6><small><input type="text" ng-model="tech.tech_pr"></small></h6></td>
+
+								<td ng-hide="tech.edit"><h6><small>{{tech.tech_email}}</small></h6></td>
+								<td ng-show="tech.edit"><h6><small><input type="text" ng-model="tech.tech_email"></small></h6></td>
+
+								<td ng-hide="tech.add"><h6><small>{{tech.tech_telnum}}</small></h6></td>
+								<td ng-show="tech.add"><h6><small><input type="text" ng-model="tech.tech_telnum"></small></h6></td>
+
+								<td ng-hide="tech.add"><h6><small>{{tech.tech_location}}</small></h6></td>
+								<td ng-show="tech.add"><h6><small><input type="text" ng-model="tech.tech_location"></small></h6></td>
+
+
+		   
+
+			        <td ng-hide="tech.edit"> 
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(tech),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(tech),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(tech))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deleteResource(tech._id)"></a>
+					</td>
+					<td ng-show="tech.edit">
+					  <a href="" class="fa fa-save" ng-click="updateResource(getRealIndex(tech))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(tech))"></a>
+					</td>
+			  </tr>
+			</tbody>
+			
+			</table>
+		</div>
+	</div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="company-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician Name" ng-model="formData.tech_name"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician ID" ng-model="formData.tech_id"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician PR Number" ng-model="formData.tech_pr"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician Location" ng-model="formData.tech_location"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician email" ng-model="formData.tech_email"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Technician tel number" ng-model="formData.tech_telnum"></br>
+
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createTech()">Add</button>
+                </form>
+            </div>
+        </div>
+        
+
+

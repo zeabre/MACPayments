@@ -1,0 +1,107 @@
+
+<div class="panel panel-success">
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h6><strong>Add new Work Orders</strong></h6>
+        </p>
+        </div>
+	</div>
+<!--
+  <table class="table table-striped table-hover table-condensed">
+    <thead>
+      <th>WO Num</th>
+      <th>WO Type</th>
+      <th>WO Volume</th>
+      <th>Budget</th>
+      <th>Company</th>
+      <th>Client</th>
+      <th>WO Date</th>
+      <th>Deadline</th>
+    </thead>
+
+   <tbody>
+      <tr ng-repeat="workorder in workorders|filter:search">
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.WO_num}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.WO_num" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.WO_type}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.WO_type" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.WO_volume}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.WO_volume" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.Budget | currency: showCurrency(workorder.Currency)}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="number" ng-model="workorder.Budget" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.Company}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.Company" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.Client}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.Client" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.WO_date | date: "dd-MM-yyyy"}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.WO_date" class="form-control input-sm"></td>
+        <td ng-hide="workorder.edit"><h6><small>{{workorder.end_date | date: "dd-MM-yyyy HH:mm:ss"}}</small></h6></td>
+        <td ng-show="workorder.edit"><input type="text" ng-model="workorder.end_date" class="form-control input-sm"></td>
+          
+ 
+        <td ng-hide="workorder.edit">
+          <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(workorder))"></a>
+          <a href=""  class="fa fa-trash-o" ng-click="deleteWorkOrder(workorder._id)"></a>
+        </td>
+        <td ng-show="workorder.edit">
+          <a href="" class="fa fa-save" ng-click="updateWorkOrder(getRealIndex(workorder))"></a>
+          <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(workorder))"></a>
+        </td>
+      </tr>
+    </tbody>
+    
+    </table>
+-->
+        <!-- FORM TO CREATE WORK ORDERS -->
+        <div class="panel panel-success">
+			<div class="panel-heading">
+
+                <form>
+                    <div class="form-group">
+						<table class="table table-condensed">
+							<thead>
+								<th><small>Field</small></th>
+								<th><small>Entry</small></th>
+							</thead>
+							
+							<tbody>
+								<tr><td><h6><small>Purchase Order</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.WO_num"></small></h6></td></tr>
+								<tr><td><h6><small>PO Type</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.WO_type"></small></h6></td></tr>
+								<tr><td><h6><small>PO Volume</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.WO_volume"></small></h6></td></tr>
+								<tr><td><h6><small>Budget</small></h6></td><td><h6><small><input type="number" class="form-control input-sm text-center" ng-model="formData.Budget">
+								<label ng-repeat="x in currencies">
+									<input type="radio" name="rdCurrency" ng-model="formData.Currency" value="{{x}}" />{{x}} 
+								</label>
+								</small></h6></td></tr>
+								
+								
+								
+								<tr><td><h6><small>Client</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.Client"></small></h6></td></tr>
+								
+								<tr><td><h6><small>Agency and contact</small></h6></td><td><h6><small><select class="form-control input-sm text-center" ng-change="getClient(formData.selCompany)" ng-model="formData.selCompany">
+									<optgroup ng-repeat="company in companies" label="{{company.company_name}}">
+										<option ng-repeat="contact in company.contacts" value="{{company.company_name}}::{{contact._id}}">{{contact.contact_name}}</option>
+									</optgroup>
+								</select></small></h6></td></tr>
+								
+								<tr><td><h6><small>Agency</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.Company"></small></h6></td></tr>
+								
+								<tr><td><h6><small>Contact Name</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.cName"></small></h6></td></tr>
+								<tr><td><h6><small>Contact Email</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.cEmail"></small></h6></td></tr>
+								<tr><td><h6><small>Contact Telnum</small></h6></td><td><h6><small><input type="text" class="form-control input-sm text-center" ng-model="formData.cTelnum"></small></h6></td></tr>
+								<tr><td><h6><small>Deadline</small></h6></td><td><h6><small><input type="datetime-local" class="form-control input-sm text-center" min="2017-01-01T00:00:00" max="2018-12-31T00:00:00" ng-model="formData.end_date"></small></h6></td></tr>
+							
+							</tbody>
+			
+						</table>            
+                   
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <div align="center">
+						<button type="submit" class="btn btn-primary btn-xs" ng-click="createWorkOrder()">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+

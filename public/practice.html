@@ -1,0 +1,85 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+
+        <div class="panel-heading">
+			<p class="bg-primary">
+            <h6><strong>Current practices <span class="label label-info">{{ practices.length }}</span></strong></h6>
+			</p>
+        </div>
+</div>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+		  <table class="table table-condensed">
+			<thead>
+				
+				<th><small>Location</small></th>
+				<th><small>Address</small></th>
+				<th><small>Telephone</small></th>
+				<th><small>Fax</small></th>
+				<th><small>Email</small></th>
+				<th><small>Technologist</small></th>
+						  
+			</thead>
+
+		   <tbody ng-repeat="practice in practices">
+			  <tr>
+				
+		 
+				<td ng-hide="practice.edit"><h6><small><div class="newline">{{practice.practice_location}}</div></small></h6></td>
+				<td ng-show="practice.edit"><h6><small><input type="text" ng-model="practice.practice_location"></small></h6></td>
+		 
+				<td ng-hide="practice.edit"><h6><small>{{practice.practice_address}}</small></h6></td>
+				<td ng-show="practice.edit"><h6><small><input type="text" ng-model="practice.practice_address"></small></h6></td>
+
+				<td ng-hide="practice.edit"><h6><small>{{practice.practice_telnum}}</small></h6></td>
+				<td ng-show="practice.edit"><h6><small><input type="text" ng-model="practice.practice_telnum"></small></h6></td>
+
+				<td ng-hide="practice.add"><h6><small>{{practice.practice_faxnum}}</small></h6></td>
+				<td ng-show="practice.add"><h6><small><input type="text" ng-model="practice.practice_faxnum"></small></h6></td>
+
+				<td ng-hide="practice.add"><h6><small>{{practice.practice_email}}</small></h6></td>
+				<td ng-show="practice.add"><h6><small><input type="text" ng-model="practice.practice_email"></small></h6></td>
+
+		   
+
+			        <td ng-hide="practice.edit"> 
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(practice),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(practice),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(practice))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deletePractice(practice._id)"></a>
+					</td>
+					<td ng-show="practice.edit">
+					  <a href="" class="fa fa-save" ng-click="updatePractice(getRealIndex(practice))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(practice))"></a>
+					</td>
+			  </tr>
+			</tbody>
+			
+			</table>
+		</div>
+	</div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="company-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-sm text-center" placeholder="Practice Location" ng-model="formData.practice_location"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Practice Address" ng-model="formData.practice_address"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Practice tel number" ng-model="formData.practice_telnum"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Practice fax number" ng-model="formData.practice_faxnum"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Practice email" ng-model="formData.practice_email"></br>
+ 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createPractice()">Add</button>
+                </form>
+            </div>
+        </div>
+        
+
+

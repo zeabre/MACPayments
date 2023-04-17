@@ -1,0 +1,70 @@
+<html lang = "en">
+   <head>
+	<meta charset="utf-8">
+   
+      <link rel = "stylesheet" href = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      <link rel="stylesheet" href="stylesheets/bootstrap.min.css" /><!-- load bootstrap -->
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+      <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <style>
+         .box {         
+            color:white;
+            padding:10px;
+            text-align:center;
+            border-style: inset;
+         }
+         
+         .green {
+            background:green;
+         }
+         
+         .blue {
+            background:blue;
+         }
+         html                    { overflow-y:scroll; }         
+         body                    { 
+									padding-top:50px;
+									padding-left:35px;
+									background-image:url("images/matrix-bg1.png"); 
+									background-repeat: no-repeat; 
+
+								}
+      </style>
+      
+      <script language = "javascript">
+         angular
+            .module('bot', ['ngMaterial'])
+            .controller('layoutController', layoutController);
+
+         function layoutController ($scope) {            
+         }	  
+      </script>      
+   </head>
+   
+   <body ng-app = "bot"> 
+      <div  id = "layoutContainer" ng-controller = "layoutController as ctrl" style = "width:580px;height:100px;" ng-cloak>
+          <div layout = "column" layout-xs = "column">
+            <div>
+				<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">Interactions BOT - ADaM</a>
+					</div>
+				</nav>
+			</div>
+         </div>
+         <div layout = "row" layout-sm = "column">
+            <div flex = "30"><img src="images/adam_nb3.png" style="height:150px;width=150px;"></div>
+            <div flex = "70">					
+				<iframe style="height:480px; width:402px; background:white" src='https://webchat.botframework.com/embed/nedbank_Adam?s=CBSUVD_jJ1Q.cwA.xlw.9Zs2nOJGiTXBJQpyN3C8M2Jb75FmgiRc7K_Gesw2qdQ'></iframe>
+			</div>
+         </div>
+         
+
+      </div>
+   </body>
+</html>

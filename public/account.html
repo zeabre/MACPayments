@@ -1,0 +1,131 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+
+        <div class="panel-heading">
+			<p class="bg-primary">
+            <h6><strong>Current accounts <span class="label label-info">{{ accounts.length }}</span></strong></h6>
+			</p>
+        </div>
+</div>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+		  <table class="table table-condensed">
+			<thead>
+				
+				<th><small>First Name</small></th>
+				<th><small>Surname</small></th>
+				<th><small>Telephone</small></th>
+				<th><small>Fax</small></th>
+				<th><small>Email</small></th>
+				<th><small>Technologist</small></th>
+						  
+			</thead>
+
+		   <tbody ng-repeat="account in accounts">
+			  <tr>
+				
+		 
+				<td ng-hide="account.edit"><h6><small><div class="newline">{{account.fname}}</div></small></h6></td>
+				<td ng-show="account.edit"><h6><small><input type="text" ng-model="account.fname"></small></h6></td>
+		 
+				<td ng-hide="account.edit"><h6><small>{{account.sname}}</small></h6></td>
+				<td ng-show="account.edit"><h6><small><input type="text" ng-model="account.sname"></small></h6></td>
+
+				<td ng-hide="account.edit"><h6><small>{{account.practice_telnum}}</small></h6></td>
+				<td ng-show="account.edit"><h6><small><input type="text" ng-model="account.practice_telnum"></small></h6></td>
+
+				<td ng-hide="account.add"><h6><small>{{account.practice_faxnum}}</small></h6></td>
+				<td ng-show="account.add"><h6><small><input type="text" ng-model="account.practice_faxnum"></small></h6></td>
+
+				<td ng-hide="account.add"><h6><small>{{account.practice_email}}</small></h6></td>
+				<td ng-show="account.add"><h6><small><input type="text" ng-model="account.practice_email"></small></h6></td>
+
+				<td ng-hide="account.add"><h6><small>{{account.practice_tech}}</small></h6></td>
+				<td ng-show="account.add"><h6><small><input type="text" ng-model="account.practice_tech"></small></h6></td>
+		   
+
+			        <td ng-hide="account.edit"> 
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(practice),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(practice),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(practice))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deletePractice(practice._id)"></a>
+					</td>
+					<td ng-show="account.edit">
+					  <a href="" class="fa fa-save" ng-click="updatePractice(getRealIndex(practice))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(practice))"></a>
+					</td>
+			  </tr>
+			</tbody>
+			
+			</table>
+		</div>
+	</div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="account-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                   <table class="table table-condensed">
+									<tr>
+										<td><h6><small>First Name</small></h6></td>
+										<td><h6><small>
+											<input type="text" class="form-control input-sm text-center" placeholder="First Name" ng-model="formData.account_fname">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Surname</small></h6></td>
+										<td><h6><small>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Surname" ng-model="formData.account_sname">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Email</small></h6></td>
+										<td><h6><small>
+                        
+                        <input type="text" class="form-control input-sm text-center" placeholder="Email" ng-model="formData.account_email">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Password</small></h6></td>
+										<td><h6><small>
+
+                        <input type="text" class="form-control input-sm text-center" placeholder="Password" ng-model="formData.account_password">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Cellphone</small></h6></td>
+										<td><h6><small>
+
+                        <input type="text" class="form-control input-sm text-center" placeholder="Cellphone" ng-model="formData.account_cell">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Technician</small></h6></td>
+										<td><h6><small>
+
+						<input type="checkbox" ng-model="formData.account_tech">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Administrator</small></h6></td>
+										<td><h6><small>
+
+                        <input type="checkbox" ng-model="formData.account_admin">
+										</small></h6></td>
+									</tr>
+                        
+                    
+									<tr><td colspan = 2>
+									 <button type="submit" class="btn md-button" ng-click="createAccount()">Add</button><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>	
+					
+                   
+                </form>
+            </div>
+        </div>
+        
+
+

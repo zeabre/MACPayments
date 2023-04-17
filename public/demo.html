@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Loadshedding Schedule Demo</title>
+	<script src="loadshedding-schedule.js"></script>
+</head>
+<body>
+	<!-- This layout is messy but I like keeping each example together -->
+	<script>var loadSheddingSchedule = new LoadSheddingSchedule();</script>
+
+	
+	<p id="test6_text_a"></p>
+	<p id="test6_countdown_a"></p>
+	<p id="test6_text_b"></p>
+	<p id="test6_countdown_b"></p>
+	<script>
+		let area = 14;
+		// can get this from crawling eskom's website every 30 mins or whatever (out of the scope of this example)
+		let stage = 3;
+
+		function getTimeStats(endDateTime) {
+			// Get todays date and time
+			let now = new Date().getTime();
+			let distance = endDateTime - now;
+
+			return {
+				// Find the distance between now and the count down date
+				distance: distance,
+				// Time calculations for days, hours, minutes and seconds
+				days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+				hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+				minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+				seconds: Math.floor((distance % (1000 * 60)) / 1000)
+			};
+		}
+
+		let loadshedding = loadSheddingSchedule.isLoadSheddingNow(stage, area);
+		if(loadshedding.status) {
+			// Update the count down every 1 second
+			var y = setInterval(function() {
+				let stats = getTimeStats(loadshedding.endDate.getTime());
+
+				// Display the result in the element with id="demo"
+				document.getElementById('test6_countdown_a').innerHTML = 'ETA: ' + stats.days + "d " + stats.hours + "h "
+				+ stats.minutes + "m " + stats.seconds + "s ";
+
+				// If the count down is finished, write some text
+				if (stats.distance < 0) {
+					clearInterval(y);
+					document.getElementById('test6_countdown_a').innerHTML = "EXPIRED";
+				}
+			}, 1000);
+
+			document.getElementById('test6_text_a').innerHTML = 'In a loadshedding timeslot. Time left in loadhseding';
+		} else {
+			document.getElementById('test6_text_a').innerHTML = 'Not in loadshedding timeslot currently';
+		}
+
+		let nextSlot = loadSheddingSchedule.getNextTimeSlot(stage, area);
+		document.getElementById('test6_text_b').innerHTML += 'Next slot is on day ' + nextSlot.day + ', at time, ' + loadSheddingSchedule.getTimeSlotHour(nextSlot.slot) + ':00' + '<br>i.e. ' + nextSlot.date;
+
+		// Set the date we're counting down to
+		var countDownDate = nextSlot.date.getTime();
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+			let stats = getTimeStats(countDownDate);
+
+			// Display the result in the element with id="demo"
+			document.getElementById('test6_countdown_b').innerHTML = 'ETA: ' + stats.days + "d " + stats.hours + "h "
+			+ stats.minutes + "m " + stats.seconds + "s ";
+
+			// If the count down is finished, write some text
+			if (stats.distance < 0) {
+				clearInterval(x);
+				document.getElementById('test6_countdown_b').innerHTML = "EXPIRED";
+			}
+		}, 1000);
+	</script>
+
+</body>
+</html>

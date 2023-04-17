@@ -1,0 +1,124 @@
+<div class="panel panel-success">
+        <div class="panel-heading">
+			<p class="bg-primary">
+				<h6><strong>Current GPIO Items <span class="label label-info">{{ gpios.length }}</span></strong></h6>
+				<div ng-controller="TempController">
+						<div><h6><strong>Current Temperature <span class="label label-info">{{ currentTemp }}</span></strong></h6></div>
+						<div><h6><strong>CPU Temperature <span class="label label-info">{{ cpuTemp59 }}</span></strong></h6></div>
+				</div>
+				
+			</p>
+        </div>
+
+</div>
+
+<div class="panel panel-success">
+        <div class="panel-heading">
+		  <table class="table table-condensed">
+			<thead>
+				<th><small>Power</small></th>
+				<th><small>Group</small></th>
+				<th><small>Name</small></th>
+				<th><small>Description</small></th>
+				<th><small>Time</small></th>
+				<th><small>Pin</small></th>
+				<th><small>Var</small></th>
+				<th><small>Status</small></th>
+				<th><small>Tasks</small></th>
+				
+			</thead>
+
+		   <tbody>
+			  <tr ng-repeat="gpio in gpios">
+
+				<td ng-hide="gpio.power">
+				  <a href="" class="fa fa-toggle-off" ng-click="togglePower($index)"></a>
+				</td>
+				<td ng-show="gpio.power">
+				  <a href="" class="fa fa-toggle-on" ng-click="togglePower($index)"></a>
+				</td>
+				
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.GPIOGroup}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.GPIOGroup"></small></h6></td>
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.GPIOName}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.GPIOName"></small></h6></td>
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.GPIODesc}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.GPIODesc"></small></h6></td>
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.Time}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.Time"></small></h6></td>
+				
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.Pin}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.Pin"></small></h6></td>
+				<td ng-hide="gpio.edit"><h6><small>{{gpio.Length}}</small></h6></td>
+				<td ng-show="gpio.edit"><h6><small><input type="text" ng-model="gpio.Length"></small></h6></td>
+		 
+			  
+
+				
+				<td ng-hide="gpio.edit">
+
+						<small>
+							<a href="" title="Initialise" class="fa fa-cogs" ng-click="offPower($index)"></a>
+							<a href="" title="Invoice"  ng-style="{'color': checkColor(workorder.invoice)}" class="fa fa-file-text-o"></a>
+							<a href="" title="Payment"  ng-style="{'color': checkColor(workorder.payment)}" class="fa fa-euro"></a>
+						</small>
+	
+				</td>
+				<td ng-show="gpio.edit"> 
+				</td>         
+				<td ng-hide="gpio.edit">
+
+						<small>
+							<a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(gpio))"></a>
+							<a href=""  class="fa fa-trash-o" ng-click="deleteGPIO(gpio._id)"></a>
+						</small>
+
+				</td>
+				<td ng-show="gpio.edit">
+
+						<small>
+							<a href="" class="fa fa-save" ng-click="updateGPIO(getRealIndex(gpio))"></a>
+							<a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(gpio))"></a>
+						</small>
+
+				</td>
+				
+
+				
+			  </tr>
+			   
+			</tbody>
+			
+			</table>
+        </div>
+
+</div>
+ 
+<div class="panel panel-success">
+        <div class="panel-heading">
+        <!-- FORM TO CREATE TODOS -->
+			<div id="GPIO-form" class="row">
+				<div class="col-sm-8 col-sm-offset-2 text-center">
+					<form>
+						<div class="form-group">
+
+							<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+							<h6><small><input type="text" class="form-control input-sm text-center" placeholder="GPIO Name" ng-model="formData.GPIOName"></small></h6></br>
+							<h6><small><input type="text" class="form-control input-sm text-center" placeholder="GPIO Description" ng-model="formData.GPIODesc"></small></h6></br>
+							<h6><small><input type="text" class="form-control input-sm text-center" placeholder="GPIO Pin" ng-model="formData.Pin"></small></h6></br>
+							<h6><small><input type="text" class="form-control input-sm text-center" placeholder="GPIO Group" ng-model="formData.GPIOGroup"></small></h6></br>
+							<h6><small><input type="text" class="form-control input-sm text-center" placeholder="Activity Length" ng-model="formData.Length"></small></h6></br>
+							<h6><small><input type="datetime-local" class="form-control input-sm text-center" placeholder="dd-MM-yyyyTHH:mm:ss" ng-model="formData.Time"></small></h6></br>
+
+						</div>
+
+						<!-- createToDo() WILL CREATE NEW TODOS -->
+						<button type="submit" class="btn btn-primary btn-xs" ng-click="createGPIO()">Add GPIO</button>
+					</form>
+				</div>
+			</div>
+        
+        </div>
+</div>
+
+

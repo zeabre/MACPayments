@@ -1,0 +1,301 @@
+
+<div class="panel panel-success">
+        <div class="panel-heading">
+        <p class="bg-primary">
+			<h6><strong>Current patients <span class="label label-info">{{ patients.length }}</span></strong></h6>
+					<form class="navbar-form navbar-right form-inline" role="form">
+						<div class="form-group">
+							<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+						</div>
+					</form>
+        </p>
+        </div>
+	</div>
+
+			
+			<div class="panel panel-success">
+				<div class="panel-heading">
+				  <table class="table table-condensed">
+							<thead>
+								<th><small>ID</small></th>
+								<th><small>Title</small></th>
+								<th><small>First Name</small></th>
+								<th><small>Last Name</small></th>
+								<th><small>Email</small></th>
+								<th><small>Tel Num</small></th>
+								<th><small>Address</small></th>
+								<th><small>Practice</small></th>
+								
+								<th><small>Medical Aid Name</small></th>
+								<th><small>Medical Aid Number</small></th>
+								<th><small>Medical Aid Type</small></th>
+								<th><small>Medical Aid Dependency</small></th>
+								<th><small>Action</small></th>
+							</thead>
+							
+						 <tbody ng-repeat="patient in patients|filter:search">
+									  <tr>
+										
+								 
+										<td ng-hide="patient.edit"><h6><small><div class="newline">{{patient.pt_ID}}</div></small></h6></td>
+										<td ng-show="patient.edit"><h6><small><input type="text" ng-model="patient.pt_ID"></small></h6></td>
+								 
+										<td ng-hide="patient.edit"><h6><small>{{patient.pt_title}}</small></h6></td>
+										<td ng-show="patient.edit"><h6><small><input type="text" ng-model="patient.pt_title"></small></h6></td>
+
+										<td ng-hide="patient.edit"><h6><small>{{patient.pt_fname}}</small></h6></td>
+										<td ng-show="patient.edit"><h6><small><input type="text" ng-model="patient.pt_fname"></small></h6></td>
+
+										<td ng-hide="patient.edit"><h6><small>{{patient.pt_sname}}</small></h6></td>
+										<td ng-show="patient.edit"><h6><small><input type="text" ng-model="patient.pt_sname"></small></h6></td>
+										
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_email}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_email"></small></h6></td>
+														
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_telnum}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_telnum"></small></h6></td>
+
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_address}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_address"></small></h6></td>
+
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_practice}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_practice"></small></h6></td>
+														
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_medaid_name}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_medaid_name"></small></h6></td>
+								   
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_medaid_num}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_medaid_num"></small></h6></td>
+
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_medaid_type}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_medaid_type"></small></h6></td>
+
+										<td ng-hide="patient.add"><h6><small>{{patient.pt_medaid_dep}}</small></h6></td>
+										<td ng-show="patient.add"><h6><small><input type="text" ng-model="patient.pt_medaid_dep"></small></h6></td>
+
+											<td ng-hide="patient.edit"> 
+											  <a href="" class="fa fa-calendar-plus-o" ng-click="showM(1,'Appointment',getRealIndex(patient),'1')"></a>
+											  <a href="" class="fa fa-file-text-o" ng-click="showM(3,'Detail',getRealIndex(patient),'1')"></a>
+											  <a href="" class="fa fa-files-o" ng-click="showM(2,'File',getRealIndex(patient),'1')"></a>
+											  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(patient),'1')"></a>
+											  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(patient))"></a>
+											  <a href="" class="fa fa-trash-o" ng-click="deletePatient(patient._id)"></a>
+											</td>
+											<td ng-show="patient.edit">
+											  <a href="" class="fa fa-save" ng-click="updatePatient(getRealIndex(patient))"></a>
+											  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(patient))"></a>
+											</td>
+									  </tr>
+							</tbody>
+			
+						</table>            
+                   
+                    </div>
+                  
+				</div>
+
+   <!-- FORM TO CREATE TODOS -->
+        <div id="patient-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" name="ID" class="form-control input-sm text-center" placeholder="Patient ID" ng-model="formData.pt_ID"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Title" ng-model="formData.pt_title"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient First Name" ng-model="formData.pt_fname"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Last Name" ng-model="formData.pt_sname"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Email" ng-model="formData.pt_email"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Tel Number" ng-model="formData.pt_telnum"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Address" ng-model="formData.pt_address"></br>
+                        								
+                        <select class="form-control input-sm text-center" ng-change="getClient(formData.pt_practice)" ng-model="formData.pt_practice">
+							<option ng-repeat="practice in practices" value="{{practice.practice_location}}">{{practice.practice_location}}</option>
+						</select></br>
+						
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Med Aid Name" ng-model="formData.pt_medaid_name"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Med Aid Number" ng-model="formData.pt_medaid_num"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Med Aid Type" ng-model="formData.pt_medaid_type"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Patient Med Aid Dependency" ng-model="formData.pt_medaid_dep"></br>
+
+ 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createPatient()">Add</button>
+                </form>
+            </div>
+            
+
+            
+        </div>
+        
+		<modal visible="showModal1" on-sown="modalOneShown()" on-hide="modalTwoHide()">
+            <modal-header title="Patient Appointment Booking for {{patientName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+
+
+				
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+
+									<tr>
+										<td><h6><small>Location</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getClient(formData.pt_practice)" ng-model="formData.pt_appt_practice">
+												<option ng-repeat="practice in practices" value="{{practice.practice_location}}">{{practice.practice_location}}</option>
+											</select>
+											</small></h6>
+										</td>
+									</tr>									
+									<tr>
+										<td><h6><small>Appointment Date</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="date" ng-model="formData.pt_appt_date" placeholder="Please select Date" ng-change="getTime()"  data-input >
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Appointment Time</small></h6></td>
+										<td><h6><small>
+												<input class="form-control input-sm text-center" id="time-2" type="text" placeholder="hh:mm" aria-live="assertive" aria-label="Use up or down arrow keys to change time">
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Service</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getService(formData.pt_practice)" ng-model="formData.pt_service_id">
+												<option ng-repeat="service in services" value="{{service.service_code}}">{{service.service_name}}</option>
+											</select>
+											</small></h6>
+										</td>
+									</tr>	
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createAppt()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>				
+					</table>			
+			  </form>
+	
+
+            </modal-body>
+            </div>
+        </modal>
+        
+		<modal visible="showModal2" on-sown="modalTwoShown()" on-hide="modalOneHide()">
+            <modal-header title="File Upload for {{patientName}}"></modal-header>
+            <modal-body>
+			<div class="modal-dialog" role="document">
+			<div ng-controller="UploadPatientController">
+				
+			  <form ng-submit="submit()">
+				 <table class="table table-condensed">
+													<tr>
+														<td><h6><small>ID Doc</small></h6></td>
+														<td>
+															<h6><small>
+																<input type="file" name="files[0]" id="files[0]" ng-model="files[0]" ngf-select ngf-max-size="25MB" required/>
+															</small></h6>
+														</td>
+													</tr>
+													<tr>
+														<td><h6><small>Patient Form</small></h6></td>
+														<td>
+															<h6><small>                        
+																<input type="file" name="files[1]" id="files[1]" ng-model="files[1]" ngf-select ngf-max-size="25MB" required/>
+															</small></h6>
+														</td>
+													</tr>
+													<tr>
+														<td><h6><small>Referral letter</small></h6></td>
+														<td>
+															<h6><small>                        
+																<input type="file" name="files[2]" id="files[2]" ng-model="files[2]" ngf-select ngf-max-size="25MB" required/>
+															</small></h6>
+														</td>
+													</tr>	
+													<tr>
+														<td><h6><small>Additionals files</small></h6></td>
+														<td>
+															<h6><small>                        
+																<input type="file" name="files[3]" id="files[3]" ng-model="files[3]" ngf-select ngf-max-size="25MB" required/>
+															</small></h6>
+														</td>
+													</tr>													
+													<tr>
+														<td>
+															<input class="btn md-button"  type="submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+														</td>
+														<td>
+													<h6><small><center>{{feedback}}</center></small></h6>
+													</td></tr>				
+									</table>			
+			  </form>
+			  				
+			 </div>
+			 </div>
+            </modal-body>
+        </modal>
+
+		<modal visible="showModal3" on-sown="modalThreeShown()" on-hide="modalOneHide()">
+            <modal-header title="Additional details for {{patientName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+									<tr>
+										<td><h6><small>Postal Address</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_post_add1" placeholder="Address line 1"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_post_add2" placeholder="Address line 2"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_post_code" placeholder="Code"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Work Address</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_work_add1" placeholder="Address line 1"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_work_add2" placeholder="Address line 2"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_work_code" placeholder="Code"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Person liable for account</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_liable_name" placeholder="Name"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_liable_id" placeholder="ID Nr"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_liable_rel" placeholder="Relationship"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Family member or person not staying with patient</small></h6></td>
+										<td><h6><small>                        
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_name" placeholder="Name"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_add" placeholder="Address"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_id" placeholder="ID Nr"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_rel" placeholder="Relationship"></br>											
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_appt_booking" placeholder="Name"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_home" placeholder="Home nr"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.pt_fam_cell" placeholder="Cell nr">
+										</small></h6>
+										</td>
+									</tr>	
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createDetails()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>																		
+					</table>			
+			  </form>
+            </modal-body>
+
+           </div>
+        </modal>
+

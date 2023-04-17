@@ -1,0 +1,33 @@
+
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h4>File Upload</h4>
+        </p>
+        </div>
+</div>
+
+    
+<div ng-controller="UploadController">
+
+  <form ng-submit="submit()">
+    <legend>Upload a new file here:</legend>
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" ng-model="uname" required/>
+    <br/>
+    <label for="file">File:</label>
+    <input type="file" name="file" id="file" ng-model="ufile" ngf-select ngf-max-size="25MB" required/>
+    <br/>
+    <input type="submit" value="Submit"/>
+  </form>
+  <h2>All uploads are here:</h2>
+	<ul>
+	  <li ng-repeat="upload in uploads">
+		<p>{{upload.name}}</p>
+		<a ng-href='api/{{upload.file.path}}'>{{upload.file.originalname}}</a>
+	  </li>
+	</ul>
+
+</div>
+			

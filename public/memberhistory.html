@@ -1,0 +1,52 @@
+<div class="panel panel-success">
+
+		
+		<table class="table table-condensed;table bg-success" >
+			<tr>
+				<td>
+		
+		
+		<table class="table table-condensed table-striped" style="border:2px green solid;">
+			<thead>
+<td><small><b>&nbsp;</b></small></td>
+						
+							<td><small><b>Race ID</b></small></td>
+							<td><small><b>Race Date</b></small></td>
+						
+							<td><small><b>Race Start</b></small></td>
+							<td><small><b>Race End</b></small></td>
+							<td><small><b>Time</b></small></td>
+		 
+			</thead>
+
+		   <tbody>
+			 						
+		 
+
+		  
+					<tr ng-if="athlete.member_id">
+							
+					 </tr>
+							  
+					  <tr ng-repeat="race in raceDetails">
+							<td><small><b>&nbsp;</b></small></td>
+							
+							<td> <h5><small>{{race.race_id}}</small></h5></td>
+							<td> <h5><small>{{race.race_date | date: "yyyy-MM-dd"}}</small></h5></td>
+						
+							<td> <h5><small>{{race.race_start | date: "HH:mm:ss"}}</small></h5></td>
+							<td> <h5><small>{{race.race_end | date: "HH:mm:ss"}}</small></h5></td>
+							<td> <h5><small>{{getRealTime(race.race_time)}}</small></h5></td>
+					  </tr>
+						<tr ng-if="no_races">
+							<td colspan=8><div align="center"><h5><small>There are no races for this athlete.</small></h5></div></td>
+						</tr>
+			  
+			</tbody>
+			
+			</table>
+			</td>
+			</tr>
+		</table>
+	</div>
+	

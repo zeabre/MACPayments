@@ -1,0 +1,95 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+
+        <div class="panel-heading">
+			<p class="bg-primary">
+            <h6><strong>Current services <span class="label label-info">{{ services.length }}</span></strong></h6>
+			</p>
+        </div>
+</div>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+		  <table class="table table-condensed">
+			<thead>
+				
+				<th><small>Service</small></th>
+				<th><small>Description</small></th>
+				<th><small>ICD10</small></th>
+				<th><small>Code</small></th>
+				<th><small>Cost</small></th>
+				<th><small>Branch</small></th>
+				<th><small>Active</small></th>
+				
+			</thead>
+
+		   <tbody ng-repeat="service in services">
+			  <tr>
+				
+		 
+				<td ng-hide="service.edit"><h6><small><div class="newline">{{service.service_name}}</div></small></h6></td>
+				<td ng-show="service.edit"><h6><small><input type="text" ng-model="service.service_name"></small></h6></td>
+		 
+				<td ng-hide="service.edit"><h6><small>{{service.service_desc}}</small></h6></td>
+				<td ng-show="service.edit"><h6><small><input type="text" ng-model="service.service_desc"></small></h6></td>
+
+				<td ng-hide="service.add"><h6><small>{{service.service_ICD10}}</small></h6></td>
+				<td ng-show="service.add"><h6><small><input type="text" ng-model="service.service_ICD10"></small></h6></td>
+
+				<td ng-hide="service.add"><h6><small>{{service.service_code}}</small></h6></td>
+				<td ng-show="service.add"><h6><small><input type="text" ng-model="service.service_code"></small></h6></td>
+
+				<td ng-hide="service.add"><h6><small>{{service.service_cost}}</small></h6></td>
+				<td ng-show="service.add"><h6><small><input type="number" ng-model="service.service_cost"></small></h6></td>
+
+				<td ng-hide="service.add"><h6><small>{{service.service_branch}}</small></h6></td>
+				<td ng-show="service.add"><h6><small><input type="number" ng-model="service.service_branch"></small></h6></td>
+
+				<td ng-hide="service.add"><h6><small>{{service.service_active}}</small></h6></td>
+				<td ng-show="service.add"><h6><small><input type="number" ng-model="service.service_active"></small></h6></td>
+
+
+		   
+
+			        <td ng-hide="service.edit">
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(service),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(service),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(service))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deleteService(service._id)"></a>
+					</td>
+					<td ng-show="service.edit">
+					  <a href="" class="fa fa-save" ng-click="updateService(getRealIndex(service))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(service))"></a>
+					</td>
+			  </tr>
+			</tbody>
+			
+			</table>
+		</div>
+	</div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="service-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-sm text-center" placeholder="Service Name" ng-model="formData.service_name"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Service Description" ng-model="formData.service_desc"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Service ICD10 Code" ng-model="formData.service_ICD10"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Service Code" ng-model="formData.service_code"></br>
+                        <input type="number" class="form-control input-sm text-center" placeholder="Service Cost" ng-model="formData.service_cost"></br>
+                        <input type="number" class="form-control input-sm text-center" placeholder="Service Branch" ng-model="formData.service_branch"></br>
+                        <input type="number" class="form-control input-sm text-center" placeholder="Active" ng-model="formData.service_active"></br>
+
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createService()">Add</button>
+                </form>
+            </div>
+        </div>
+        
+
+

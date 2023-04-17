@@ -1,0 +1,165 @@
+		
+								
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td>
+								
+					<table class="table table-condensed" style="border:2px green solid;">
+							
+							
+						 <tbody>
+									  <tr><td >
+
+   <!-- FORM TO CREATE TODOS -->
+        <div id="member-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                          <table class="table table-condensed;table bg-success">
+									<tr>
+										<td>ID Number</td>
+										<td>
+                        <input disabled type="text" name="ID" class="form-control input-sm text-center" placeholder="Member ID" ng-model="members.mb_ID">
+                        </td>
+									</tr>
+									<tr>
+										<td>Title</small></h6></td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Title" ng-model="members.mb_title">
+                        </td>
+									</tr>
+									<tr>
+										<td>First Name</small></h6></td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member First Name" ng-model="members.mb_fname">
+                        </td>
+									</tr>
+									<tr>
+										<td>Surname</small></h6></td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Last Name" ng-model="members.mb_sname">
+                        </td>
+									</tr>
+									<tr>
+										<td>Email Address</td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Email" ng-model="members.mb_email">
+                        </td>
+									</tr>
+									<tr>
+										<td>Cell Number</td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Tel Number" ng-model="members.mb_telnum">
+                        </td>
+									</tr>
+									<tr>
+										<td>Address</td>
+										<td>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Address" ng-model="members.mb_address">
+                        								</td>
+									</tr>
+									<tr>
+										<td>ASA Number</td>
+										<td>
+						
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member ASA" ng-model="members.mb_ASA">
+                        </td>
+									</tr>
+									<tr>
+										<td>MAC Tag Number</td>
+										<td>
+                        <input disabled type="text" class="form-control input-sm text-center" placeholder="Member Tag" ng-model="members.mb_tag">
+                        </td>
+									</tr>
+									<tr>
+										<td>5km Average</td>
+										<td>
+						<input type="text" class="form-control input-sm text-center" date="HH:mm:ss" placeholder="Member 5km Avg" ng-model="members.mb_5kmAvg">
+                  	
+									
+										</td>
+									</tr>
+									
+																									
+					</table>
+ <div><input class="btn md-button"  type="submit" ng-click="updateMember()" value="Update"/><button class="btn md-button" ng-click="reload()">Cancel</button>
+									</div>
+                    </div>
+
+
+                  
+                </form>
+            </div>
+            
+
+            
+        </div>
+        </td></tr>
+							</tbody>
+			
+						</table>
+		
+        
+						</td>
+					</tr>
+					
+	
+				</table>
+
+
+
+		</div>
+	
+
+		<modal visible="showModal3" on-sown="modalThreeShown()" on-hide="modalOneHide()">
+            <modal-header title="Additional details for {{memberName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+									<tr>
+										<td><h6><small>Postal Address</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add1" placeholder="Address line 1"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add2" placeholder="Address line 2"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_code" placeholder="Code"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>MAC club payment</small></h6></td>
+										<td><h6><small>
+											
+											
+											
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_asa" placeholder="ASA payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_asa" placeholder="ASA number"></br>
+
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_clothing" placeholder="Clothing payment"></br>
+									
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_mac" placeholder="MAC payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_mac" placeholder="MAC tag"></br>
+
+											
+									
+										</small></h6></td>
+									</tr>
+									
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createDetails()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>																		
+					</table>			
+			  </form>
+            </modal-body>
+
+           </div>
+        </modal>
+

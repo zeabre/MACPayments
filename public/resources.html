@@ -1,0 +1,203 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h4>Current resources <span class="label label-info">{{ resources.length }}</span><span class="pull-right"><a href="" ng-click="showM(3,'',0,'1')">+</a></span></h4>
+        </p>
+        </div>
+		<form class="form-inline">
+			<div class="form-group">
+				<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+			</div>
+		</form>
+	</div>
+
+  <table class="table table-striped table-hover table-condensed">
+    <thead>
+	  <th>...</th>
+
+      <th>Person No</th>
+      <th>First Name</th>
+      <th>Surname</th>
+      <th>Entry Date</th>
+      <th>Exit Date</th>
+ 	  <th>RPLM</th>   
+	</thead>
+
+   <tbody>
+      <tr ng-repeat-start="resource in resources|filter:search" ng-class="{'custom-critical':1=={{checkDate(getRealIndex(resource))}},'custom-warning':2=={{checkDate(getRealIndex(resource))}}}">
+		<td>
+              <a href="" class="fa fa-minus-square" ng-if="resource.expanded" ng-click="resource.expanded = false"></a>
+              <a href="" class="fa fa-plus-square" ng-if="!resource.expanded" ng-click="resource.expanded = true"></a>
+        </td>
+
+	
+        <td ng-hide="resource.edit">{{resource.PersonNo}}</td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.PersonNo"></td>
+ 
+        <td ng-hide="resource.edit">{{resource.fname}}</td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.fname"></td>
+        
+        <td ng-hide="resource.edit">{{resource.sname}}</td>
+		<td ng-show="resource.edit"><input type="text" ng-model="resource.sname"></td>
+		
+        <td ng-hide="resource.edit">{{resource.EntryDate | date: "yyyy-MM-dd"}}</td>
+        <td ng-show="resource.edit"><input type="date" ng-model="resource.EntryDate"></td>
+ 
+         <td ng-hide="resource.edit">{{resource.LeaveDate | date: "yyyy-MM-dd"}}</td>
+        <td ng-show="resource.edit"><input type="date" value="1999-12-12" ng-model="resource.LeaveDate"></td>
+  	
+		<td ng-hide="resource.edit">{{resource.RPLM}}</td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.RPLM"></td>
+  
+        <td ng-hide="resource.edit">
+          <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(resource),'1')"></a>
+          <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(resource),'1')"></a>
+          <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(resource))"></a>
+          <a href=""  class="fa fa-trash-o" ng-click="deleteResource(resource._id)"></a>
+        </td>
+        <td ng-show="resource.edit">
+          <a href="" class="fa fa-save" ng-click="updateResource(getRealIndex(resource))"></a>
+          <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(resource))"></a>
+        </td>
+      </tr>
+      <tr ng-if="resource.expanded">
+            <td> </td><td class="success" colspan="1">Unit:</td><td colspan="5">{{resource.OrgUnit}}</td>
+      </tr>
+      <tr ng-if="resource.expanded">
+            <td> </td><td class="success" colspan="1">Org Unit:</td><td colspan="5">{{resource.OrgUnitName}}</td>
+      </tr>
+      <tr ng-if="resource.expanded" ng-repeat-end="">
+            <td> </td><td class="success" colspan="1">Comments:</td><td colspan="5">{{resource.Comments}}</td>
+      </tr>
+    </tbody>
+    </table>
+
+		
+		
+		<modal visible="showModal1" on-sown="modalOneShown()" on-hide="modalOneHide()">
+            <modal-header title="File Upload"></modal-header>
+            <modal-body>
+
+			<div ng-controller="UploadModalController">
+				
+			  <form ng-submit="submit()">
+
+				<legend>Upload documents for {{fullname}}</legend>
+				<label for="name">Name:</label>
+				<input type="text" name="name" ng-model="uname" required/>
+				<br/>
+				<label for="file">File:</label>
+				<input type="file" name="file" id="file" ng-model="ufile" ngf-select ngf-max-size="25MB" required/>
+				<br/>
+				<label for="filetype.name">File type:</label>
+				<br/>
+				  	<input type="radio" ng-model="fileType.name" value="A3">A3
+					<br/>
+				  	<input type="radio" ng-model="fileType.name" value="Legal">Legal
+					<br/>
+				  	<input type="radio" ng-model="fileType.name" value="Qualifications">Qualifications
+					<br/><br/>
+				<input type="submit" value="Submit"/>
+				{{Results}}
+
+			  </form>
+				  				
+			 </div>
+            </modal-body>
+            <modal-footer>
+                <button class="btn btn-primary"  ng-click="hide(1)">Close</button>
+            </modal-footer>
+        </modal>
+
+		<modal visible="showModal2" on-sown="modalTwoShown()" on-hide="modalTwoHide()">
+            <modal-header title="Email"></modal-header>
+            <modal-body>
+				<div id="email-form" class="row">
+					<div class="col-sm-8 col-sm-offset-2 text-center">
+					<div ng-controller="ResourceController">
+					<form>
+						<div class="form-group">
+						<legend>Email for {{fullname}}</legend>
+						<label for="name">Subject:</label>
+						<input type="text" class="form-control input-lg text-center" ng-model="emailData.subjectText"/>
+						<br/>
+						<label for="name">Body:</label>
+						<textarea class="form-control input-lg text-center" ng-model="emailData.bodyText">
+						</textarea>					
+						<br/>
+						<button class="btn btn-primary" type="submit" ng-click="emailResource()">Email</button>
+						{{Results}}
+						</div>
+						</div>
+					 </form>
+				 </div>
+				</div>
+			</modal-body>
+            <modal-footer>
+                <button class="btn btn-primary"  ng-click="hide(2)">Close</button>
+            </modal-footer>
+		</modal>
+		
+		<modal visible="showModal3" on-sown="modalThreeShown()" on-hide="modalThreeHide()">
+            <modal-header title="New Resource"></modal-header>
+            <modal-body>
+				<div id="resource-form" class="row">
+					<div class="col-sm-8 col-sm-offset-2 text-center">
+					<div ng-controller="ResourceController">
+					<form>
+						<div class="form-group">
+						<legend>Details for new person</legend>
+						<label for="name">First Name:</label>
+						<input type="text" class="form-control input-lg text-center" ng-model="resourceData.firstName"/>
+						<br/>
+						<label for="name">Surname:</label>
+						<input type="text" class="form-control input-lg text-center" ng-model="resourceData.Surname"/>
+						<br/>
+						<label for="name">RPLM:</label>
+						<input type="text" class="form-control input-lg text-center" ng-model="resourceData.RPLM"/>
+						<br/>
+						<button class="btn btn-primary" type="submit" ng-click="createResource()">Add resource</button>
+						{{Results}}
+						</div>
+						</div>
+					 </form>
+				 </div>
+				</div>
+			</modal-body>
+            <modal-footer>
+                <button class="btn btn-primary"  ng-click="hide(3)">Close</button>
+            </modal-footer>
+		</modal>
+     
+            
+	<div class="panel panel-success">
+			<!-- HEADER AND TODO COUNT -->
+				<div class="panel-heading">
+				<p class="bg-primary">
+			    <h4>Uploaded files for {{fullname}} <span class="label label-info">{{ files.length }}</span></h4>
+				</p>
+				</div>
+	 </div>
+            
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+		  <th>...</th>
+
+		  <th>File Name</th>
+		  <th>Location</th>
+		  <th>Type</th>
+		  <th>Create Date</th>
+		</thead>
+
+		<tbody>
+		  <tr ng-repeat="onefile in files">
+						<td> </td>
+						<td>{{onefile.name}}</td>
+						<td><a ng-href='api/{{onefile.file.path + "/" + onefile.file.originalname}}'>{{onefile.file.originalname}}</a></td>
+						<td>{{onefile.filetype}}</td>
+						<td>{{onefile.created | date: "yyyy-MM-dd"}}</td>
+		  </tr>
+		</tbody>
+    </table>
+

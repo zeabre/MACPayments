@@ -1,0 +1,125 @@
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+          <div class="navbar-form navbar-left">
+
+            <h5>Patients Booked for {{practice_return}}: {{ patients.length }}</h5>
+          </div>
+
+
+		  <form class="navbar-form navbar-right">
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+		  </form>
+		  <ul class="nav navbar-nav navbar-right">
+
+             <li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select practice <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+								<li><a href="" ng-click="findPatientsPerPractice('All')" ng-class="{active:activeTab === 'main'}">All</a></li>
+								<li role="separator" class="divider"></li>
+								<li ng-repeat="practice in practices"><a href="" ng-click="findPatientsPerPractice(practice.practice_location)" ng-class="{active:activeTab === 'main'}">{{practice.practice_location}}</a></li>
+						</ul>
+              </li>
+		  </ul>
+
+  </div><!-- /.container-fluid -->
+</nav>
+			
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+							<thead>
+							  <th><small>...</small></th>
+							  <th><small>Appt Date</small></th>
+							   <th><small>Practice</small></th>
+
+							  <th><small>Patient name</small></th>  
+							  <th><small>ID</small></th>  
+							  <th><small>Tel Num</small></th> 
+							  <th><small>Status</small></th> 
+
+							</thead>
+
+						   <tbody>
+							   
+							  <tr ng-repeat-start="patient in patients|filter:search" ng-if="checkCurrentDate(patient.appt_date)">
+								
+								<td ng-show="patient.appt">
+										<h5><small>
+											<a href="" class="fa fa-minus-square" ng-click="showAppts(getRealIndex(patient))" ng-if="patient.appt"></a>				
+										</small></h5>
+								</td>
+								<td ng-hide="patient.appt">
+										<h5><small>
+											<a href="" class="fa fa-plus-square" ng-click="showAppts(getRealIndex(patient))" ng-if="!patient.appt"></a>
+										</small></h5>
+								</td> 
+						 
+						 
+								
+								
+
+						 
+								<td><h5><small><b>{{patient.appt_date | date: "yyyy-MM-dd"}}</b></small></h5></td>
+						 
+								 <td><h5><small>{{patient.PatientDetails[0].pt_practice}}</small></h5></td>
+							
+								<td><h5><small>{{patient.PatientDetails[0].pt_fname}} {{patient.PatientDetails[0].pt_sname}}</small></h5></td>
+								<td><h5><small>{{patient.pt_ID}}</small></h5></td>
+								
+								<td><h5><small>{{patient.PatientDetails[0].pt_telnum}}</small></h5></td>
+
+								<td>
+									<a href="" title="Legal" class="fa fa-gavel" ng-style="{'color': checkColor(patient.fLegal)}" ng-click="showM(1,'Legal',getRealIndex(patient),'1')"></a>
+									<a href="" title="A3" class="fa fa-money" ng-style="{'color': checkColor(patient.fA3)}" ng-click="showM(1,'A3',getRealIndex(patient),'2')"></a>
+									<a href="" title="Qualifications"  ng-style="{'color': checkColor(patient.fQualifications)}" class="fa fa-university" ng-click="showM(1,'Qualifications',getRealIndex(patient),'3')"></a>
+									<a href="" title="HR setup"  ng-style="{'color': checkColor(patient.fHR)}" class="fa fa-address-card-o"></a>
+									<a href="" title="Access Control"  ng-style="{'color': checkColor(patient.fAccess)}" class="fa fa-id-badge"></a>
+									<a href="" title="Laptop"  ng-style="{'color': checkColor(patient.fLaptop)}" class="fa fa-id-laptop"></a>
+									</td>
+								 
+
+							  <tr ng-if="patient.appt">
+									<td><small><b>&nbsp;</b></small></td>
+									<td><small><b>Appointment</b></small></td>
+									<td><small><b>Med Aid</b></small></td>
+									<td><small><b>Med Aid Number</b></small></td>
+									<td><small><b>Plan</b></small></td>
+									<td><small><b>Dep</b></small></td>
+									<td><small><b>Service Code</b></small></td>
+							 </tr>
+							  
+							  <tr ng-if="patient.appt" ng-repeat-end="">
+								   <td><small><b>&nbsp;</b></small></td>
+									
+									<td> <h5><small>{{patient.appt_date | date: "HH:mm dd-MM-yyyy"}}</small></h5></td>
+									<td> <h5><small>{{patient.service_code}}</small></h5></td>
+									<td> <h5><small>{{patient.service_code}}</small></h5></td>
+									<td> <h5><small>{{patient.service_code}}</small></h5></td>
+									<td> <h5><small>{{patient.service_code}}</small></h5></td>
+									<td> <h5><small>{{patient.service_code}}</small></h5></td>
+							  </tr>
+								<tr ng-if="no_bookings">
+									<td colspan=7><div align="center"><h5><small>There are no bookings for today.</small></h5></div></td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</table>
+	
+
+
+	</div>
+	

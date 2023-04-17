@@ -1,0 +1,86 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h6><strong>Current invoices <span class="label label-info">{{ invoices.length }}</span></strong></h6>
+        </p>
+        </div>
+		
+	</div>
+
+<div class="panel panel-success">
+        <div class="panel-heading">	
+  <table class="table table-condensed">
+    <thead>
+
+
+      <th><small>Agency</small></th>
+      <th><small>Invoice Amount</small></th>
+      <th><small>Entries</small></th>
+      <th><small>Preview</small></th>
+      <th><small>Actions</small></th>
+	</thead>
+
+   <tbody>
+      <tr ng-repeat="invoice in invoices">
+
+
+	
+        <td><h6><small>{{invoice._id}}</small></h6></td>
+       
+        <td><h6><small>{{invoice.Invoice_total | currency:"€"}}</small></h6></td>
+         
+        <td><h6><small>{{invoice.Invoice_items}}</small></h6></td>
+		
+       
+        <td>
+          <a href="" class="fa fa-edit" ng-click="showM(getRealIndex(invoice))"></a>
+        </td>
+        <td ng-show="invoice.main">
+			<a href="" class="fa fa-file-excel-o" ng-click="convertExcel(getRealIndex(invoice))" ng-csv="workorders" csv-header="getHeader()" lazy-load="true" filename="Invoice.csv"></a>
+			<a href="" class="fa fa-file-text-o" ng-click="pdfMaker(invoice.Invoice_total,getRealIndex(invoice))"></a>
+		</td>
+         <td ng-hide="invoice.main">
+		</td>       
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="panel panel-success">
+        <div class="panel-heading">	
+	<table class="table table-condensed">
+		<thead>
+			<th><small>Inv</small></th>
+			<th><small>PO Num</small></th>
+			<th><small>PO Type</small></th>
+			<th><small>Client</small></th>
+			<th><small>PO Date</small></th>
+			<th><small>Budget</small></th>
+		</thead>
+
+		<tbody>
+		  <tr ng-repeat="workorder in workorders">
+			<td ng-hide="workorder.edit"><h6><small><input type="checkbox" ng-model="workorder.inv"></small></h6></td>
+			<td ng-hide="workorder.edit"><h6><small>{{workorder.WO_num}}</small></h6></td>
+			<td ng-hide="workorder.edit"><h6><small>{{workorder.WO_type}}</small></h6></td>
+			
+			<td ng-hide="workorder.edit"><h6><small>{{workorder.Client}}</small></h6></td>
+			<td ng-hide="workorder.edit"><h6><small>{{workorder.WO_date | date: "dd-MM-yyyy"}}</small></h6></td>
+			<td ng-hide="workorder.edit"><h6><small>{{workorder.Budget | currency:"€"}}</small></h6></td>
+
+			 
+		  </tr>
+		</tbody>
+
+	</table>
+</div>
+</div>
+
+	
+
+        
+
+

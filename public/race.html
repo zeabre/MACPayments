@@ -1,0 +1,110 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+		<div class="navbar-form navbar-left">
+			<h5>Current athletes: {{ athletes.length }}</h5>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+
+		</div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker1"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+			<thead>
+				
+				<th><small>Athlete</small></th>
+				<th><small>Tag</small></th>
+				<th><small>Race Distance</small></th>
+				<th><small>Race Date</small></th>
+		 
+			</thead>
+
+		   <tbody ng-repeat="athlete in race|filter:search">
+			  <tr>
+				
+		 
+				<td ng-hide="athlete.edit"><h6><small><div class="newline">{{athlete.athlete_name}}</div></small></h6></td>
+				<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.athlete_name"></small></h6></td>
+		 
+								<td ng-hide="athlete.edit"><h6><small>{{athlete.race_tag}}</small></h6></td>
+								<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.race_tag"></small></h6></td>
+
+								<td ng-hide="athlete.edit"><h6><small>{{athlete.race_distance}}</small></h6></td>
+								<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.race_distance"></small></h6></td>
+
+								<td ng-hide="athlete.add"><h6><small>{{athlete.race_date}}</small></h6></td>
+								<td ng-show="athlete.add"><h6><small><input type="text" ng-model="athlete.race_date"></small></h6></td>
+
+		   
+
+			        <td ng-hide="athlete.edit"> 
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(athlete),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(athlete),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(athlete))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deleteResource(athlete._id)"></a>
+					</td>
+					<td ng-show="athlete.edit">
+					  <a href="" class="fa fa-save" ng-click="updateResource(getRealIndex(athlete))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(athlete))"></a>
+					</td>
+			  </tr>
+			</tbody>
+			
+			</table>
+		</div>
+	</div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="company-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+	
+                <form name="race_form" id="race_form">
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        
+						<label><input type="radio" ng-model="formData.race_distance" id="race_distance_5" name="race_distance_5" value=5>5km</label></br>
+						<label><input type="radio" ng-model="formData.race_distance" value=8>8km</label></br>
+						<label><input type="radio" ng-model="formData.race_distance" value=10>10km</label></br>
+						<label><input type="radio" ng-model="formData.race_distance" value="SS">Staggered start 5km</label></br>
+							 
+						<h4><small>
+									
+									
+
+						<div id="datepicker" class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-th"></span>
+							</div>
+						</div>
+						
+						</small></h4>
+								
+						<input type="text" class="form-control input-sm text-center" placeholder="Athlete Tag" ng-model="formData.race_tag" id="athlete_tag" name="athlete_tag"></br>
+                 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createAthlete()">Add</button>
+                </form>
+            </div>
+        </div>
+        
+
+

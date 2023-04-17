@@ -1,0 +1,113 @@
+<!-- index.html -->
+<!DOCTYPE html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="scotchApp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Optimize mobile viewport -->
+
+    <title>Patient Management System</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css" /><!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
+	<link rel="stylesheet" href="stylesheets/appointment-picker.css" />
+ 
+
+
+
+	
+    <style>
+        html                    		{ overflow-y:scroll; }
+        body                    		{ padding-top:50px; }
+        #vendor-list            		{ margin-bottom:30px; }
+		.custom-critical				{color:red;}
+		.custom-warning					{color:orange;}
+		.modal-dialog					{
+										width:1000px;
+										top:0;
+										right:0;
+										bottom:0;
+										left:0;
+										}
+	
+	</style>
+    
+
+
+    <!-- SPELLS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+	
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/appointment-picker.min.js"></script>
+    <script src="javascripts/ng-file-upload-all.min.js"></script>
+
+
+	
+	<script src="core.js"></script>
+	
+
+
+
+
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body>
+
+
+<div class="container" role="navigation">
+	<header >
+		
+		<div ng-controller="LoginController">
+			<div ng-if="loggedin_user !=''">
+				<div align="right">Welcome, {{loggedin_user}}</div>
+			</div>
+			
+            <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Patient Management System</a>
+                </div>
+				<div ng-if="loggedin_user !=''">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#main" ng-class="{active:activeTab === 'main'}"><i class="fa fa-home"></i> Home</a></li>
+						<li><a href="#patient"><i class="fa fa-male"></i> Patient</a></li>
+						<li><a href="#doctor"><i class="fa fa-user-md"></i> Doctor</a></li>
+						<li><a href="#practice"><i class="fa fa-h-square"></i> Practice</a></li>
+						<li><a href="#service"><i class="fa fa-heartbeat"></i> Service</a></li>
+						<li><a href="#history"><i class="fa fa-history"></i> History</a></li>
+						<li><a href="#history"><i class="fa fa-archive"></i> Archive</a></li>
+						<li><a href="#logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+					</ul>
+                </div>
+ 				<div ng-if="loggedin_user ==''">
+					<ul class="nav nav-tabs navbar-right">
+						<li><a href="#register"><i class="fa fa-sign-in"></i> Register</a></li>
+					</ul>
+                </div>               
+            </div>
+            </nav>
+          </div>
+        </header>	
+        
+        <div id="index">
+			<div ng-view></div>
+
+        </div>
+
+</div>
+
+
+
+</body>
+
+</html>

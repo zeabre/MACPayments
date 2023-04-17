@@ -1,0 +1,256 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+			<div class="navbar-form navbar-left">
+					<h5>Current members: {{ members.length }}</h5>
+			</div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+		  <form class="navbar-form navbar-right">
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+		  </form>
+		  <ul class="nav navbar-nav navbar-right">
+
+             <li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+								<li><a href="" ng-click="findmembersPerPractice('all')" ng-class="{active:activeTab === 'main'}">All</a></li>
+								<li role="separator" class="divider"></li>
+								<li ng-repeat="practice in practices"><a href="" ng-click="findMembers(members.members_fname)" ng-class="{active:activeTab === 'main'}">{{members.members_fname}}</a></li>
+						</ul>
+              </li>
+		  </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>		
+								
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker1"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+							<thead>
+								<th><small>ID</small></th>
+								<th><small>Title</small></th>
+								<th><small>First Name</small></th>
+								<th><small>Last Name</small></th>
+								<th><small>Email</small></th>
+								<th><small>Tel Num</small></th>
+								<th><small>ASA Number</small></th>
+								<th><small>Tag</small></th>
+								<th><small>5km Avg</small></th>
+									
+								<th><small>Action</small></th>
+							</thead>
+							
+						 <tbody ng-repeat="member in members|filter:search">
+									  <tr>
+										
+								 
+										<td ng-hide="member.edit"><h6><small><div class="newline">{{member.mb_ID}}</div></small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_ID"></small></h6></td>
+								 
+										<td ng-hide="member.edit"><h6><small>{{member.mb_title}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_title"></small></h6></td>
+
+										<td ng-hide="member.edit"><h6><small>{{member.mb_fname}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_fname"></small></h6></td>
+
+										<td ng-hide="member.edit"><h6><small>{{member.mb_sname}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_sname"></small></h6></td>
+										
+										<td ng-hide="member.edit"><h6><small>{{member.mb_email}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_email"></small></h6></td>
+														
+										<td ng-hide="member.edit"><h6><small>{{member.mb_telnum}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_telnum"></small></h6></td>
+														
+										<td ng-hide="member.edit"><h6><small>{{member.mb_ASA}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_ASA"></small></h6></td>
+								   
+										<td ng-hide="member.edit"><h6><small>{{member.mb_tag}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_tag"></small></h6></td>
+								   	
+										<td ng-hide="member.edit"><h6><small>{{showTime(member.mb_5kmAvg)}}</small></h6></td>
+										<td ng-show="member.edit"><h6><small><input type="text" ng-model="member.mb_5kmAvg"></small></h6></td>
+								   	
+								   	
+											<td ng-hide="member.edit"> 
+											  <a href="" class="fa fa-calendar-plus-o" ng-click="showM(1,'Appointment',getRealIndex(member),'1')"></a>
+											  <a href="" class="fa fa-file-text-o" ng-click="showM(3,'Detail',getRealIndex(member),'1')"></a>
+											  
+											  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(member),'1')"></a>
+											  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(member))"></a>
+											  <a href="" class="fa fa-trash-o" ng-click="deleteMember(member._id)"></a>
+											</td>
+											<td ng-show="member.edit">
+											  <a href="" class="fa fa-save" ng-click="updateMember(getRealIndex(member))"></a>
+											  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(member))"></a>
+											</td>
+									  </tr>
+							</tbody>
+			
+						</table>
+
+						</td>
+					</tr>
+					
+				</table>
+	
+
+
+	</div>
+
+   <!-- FORM TO CREATE TODOS -->
+        <div id="member-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" name="ID" class="form-control input-sm text-center" placeholder="Member ID" ng-model="formData.mb_ID"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Title" ng-model="formData.mb_title"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member First Name" ng-model="formData.mb_fname"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Last Name" ng-model="formData.mb_sname"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Email" ng-model="formData.mb_email"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Tel Number" ng-model="formData.mb_telnum"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Address" ng-model="formData.mb_address"></br>
+                        								
+						
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member ASA" ng-model="formData.mb_ASA"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Member Tag" ng-model="formData.mb_tag"></br>
+						<input type="text" class="form-control input-sm text-center" placeholder="Member 5km Avg" ng-model="formData.mb_5kmAvg"></br>
+                  
+ 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createMember()">Add</button>
+                </form>
+            </div>
+            
+
+            
+        </div>
+        
+		<modal visible="showModal1" on-sown="modalOneShown()" on-hide="modalTwoHide()">
+            <modal-header title="member Appointment Booking for {{memberName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+
+
+				
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+
+									<tr>
+										<td><h6><small>Location</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getClient(formData.mb_practice)" ng-model="formData.mb_apmb_practice">
+												<ombion ng-repeat="practice in practices" value="{{practice.practice_location}}">{{practice.practice_location}}</ombion>
+											</select>
+											</small></h6>
+										</td>
+									</tr>									
+									<tr>
+										<td><h6><small>Technician</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getID(formData.mb_apmb_tech)" ng-model="formData.mb_apmb_tech">
+												<ombion ng-repeat="tech in techs" value="{{tech.tech_name}}">{{tech.tech_name}}</ombion>
+											</select>
+											<input type="text"  class="form-control input-sm text-center" placeholder="Tech_ID" ng-model="formData.mb_tech_id">
+											</small></h6>
+										</td>
+									</tr>		
+									<tr>
+										<td><h6><small>Appointment Date</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="date" ng-model="formData.mb_apmb_date" ng-change="getTime()" placeholder="Please select Date"  data-input >
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Appointment Time</small></h6></td>
+										<td><h6><small>
+												<input class="form-control input-sm text-center"   type="submit" ng-click="openTicker()" value="Select time"<div class="form-control input-sm text-center" ng-model="formData.mb_apmb_time_sel" id="time-2" type="text" placeholder="hh:mm" aria-live="assertive" aria-label="Use up or down arrow keys to change time" />
+												
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Service</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getService(formData.mb_practice)" ng-model="formData.mb_service_id">
+												<ombion ng-repeat="service in services" value="{{service.service_code}}">{{service.service_name}}</ombion>
+											</select>
+											</small></h6>
+										</td>
+									</tr>	
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createApmb()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Close</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>				
+					</table>			
+			  </form>
+	
+
+            </modal-body>
+            </div>
+        </modal>
+        
+	
+
+		<modal visible="showModal3" on-sown="modalThreeShown()" on-hide="modalOneHide()">
+            <modal-header title="Additional details for {{memberName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+									<tr>
+										<td><h6><small>Postal Address</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add1" placeholder="Address line 1"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add2" placeholder="Address line 2"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_code" placeholder="Code"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>MAC club payment</small></h6></td>
+										<td><h6><small>
+											
+											
+											
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_asa" placeholder="ASA payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_asa" placeholder="ASA number"></br>
+
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_clothing" placeholder="Clothing payment"></br>
+									
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_mac" placeholder="MAC payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_mac" placeholder="MAC tag"></br>
+
+											
+									
+										</small></h6></td>
+									</tr>
+									
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createDetails()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>																		
+					</table>			
+			  </form>
+            </modal-body>
+
+           </div>
+        </modal>
+

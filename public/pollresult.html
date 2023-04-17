@@ -1,0 +1,236 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+			<div class="navbar-form navbar-left">
+					<h5>Current polls: {{ polls.length }}</h5>
+			</div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+		  <form class="navbar-form navbar-right">
+					<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+		  </form>
+		  <ul class="nav navbar-nav navbar-right">
+
+             <li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+								<li><a href="" ng-click="findPolls('all')" ng-class="{active:activeTab === 'main'}">All</a></li>
+								<li role="separator" class="divider"></li>
+								<li ng-repeat="poll in polls"><a href="" ng-click="findPolls(polls.poll_name)" ng-class="{active:activeTab === 'main'}">{{polls.poll_name}}</a></li>
+						</ul>
+              </li>
+		  </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>		
+								
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker1"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+							<thead>
+								<th><small>Poll Title</small></th>
+								<th><small>Poll Date</small></th>
+								<th><small>Poll Description</small></th>
+								
+								
+								<th><small>Action</small></th>
+							</thead>
+							
+						 <tbody ng-repeat="poll in polls|filter:search">
+									  <tr>
+										
+								 
+										<td ng-hide="poll.edit"><h6><small>{{poll.pl_name}}</small></h6></td>
+										<td ng-show="poll.edit"><h6><small><input type="text" ng-model="poll.pl_name"></small></h6></td>
+
+										<td ng-hide="poll.edit"><h6><small>{{poll.pl_date}}</small></h6></td>
+										<td ng-show="poll.edit"><h6><small><input type="text" ng-model="poll.pl_date"></small></h6></td>
+
+										<td ng-hide="poll.edit"><h6><small>{{poll.pl_desc}}</small></h6></td>
+										<td ng-show="poll.edit"><h6><small><input type="text" ng-model="poll.pl_desc"></small></h6></td>
+										
+										
+								   	
+
+											<td ng-hide="poll.edit"> 
+											  <a href="" class="fa fa-calendar-plus-o" ng-click="showM(1,'Appointment',getRealIndex(poll),'1')"></a>
+											  <a href="" class="fa fa-file-text-o" ng-click="showM(3,'Detail',getRealIndex(poll),'1')"></a>
+											  
+											  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(poll),'1')"></a>
+											  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(poll))"></a>
+											  <a href="" class="fa fa-trash-o" ng-click="deletePoll(poll._id)"></a>
+											</td>
+											<td ng-show="poll.edit">
+											  <a href="" class="fa fa-save" ng-click="updatemember(getRealIndex(poll))"></a>
+											  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(poll))"></a>
+											</td>
+									  </tr>
+							</tbody>
+			
+						</table>
+
+						</td>
+					</tr>
+					
+				</table>
+	
+
+
+	</div>
+
+   <!-- FORM TO CREATE TODOS -->
+        <div id="member-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" name="ID" class="form-control input-sm text-center" placeholder="Poll ID" ng-model="formData.pl_ID"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Poll Name" ng-model="formData.pl_name"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Poll Description" ng-model="formData.pl_desc"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 1" ng-model="formData.pl_question1"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 2" ng-model="formData.pl_question2"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 3" ng-model="formData.pl_question3"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 4" ng-model="formData.pl_question4"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 5" ng-model="formData.pl_question5"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 6" ng-model="formData.pl_question6"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 7" ng-model="formData.pl_question7"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 8" ng-model="formData.pl_question8"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 9" ng-model="formData.pl_question9"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Question 10" ng-model="formData.pl_question10"></br>
+                  
+ 
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createPoll()">Add</button>
+                </form>
+            </div>
+            
+
+            
+        </div>
+        
+		<modal visible="showModal1" on-sown="modalOneShown()" on-hide="modalTwoHide()">
+            <modal-header title="member Appointment Booking for {{memberName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+
+
+				
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+
+									<tr>
+										<td><h6><small>Location</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getClient(formData.mb_practice)" ng-model="formData.mb_apmb_practice">
+												<ombion ng-repeat="practice in practices" value="{{practice.practice_location}}">{{practice.practice_location}}</ombion>
+											</select>
+											</small></h6>
+										</td>
+									</tr>									
+									<tr>
+										<td><h6><small>Technician</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getID(formData.mb_apmb_tech)" ng-model="formData.mb_apmb_tech">
+												<ombion ng-repeat="tech in techs" value="{{tech.tech_name}}">{{tech.tech_name}}</ombion>
+											</select>
+											<input type="text"  class="form-control input-sm text-center" placeholder="Tech_ID" ng-model="formData.mb_tech_id">
+											</small></h6>
+										</td>
+									</tr>		
+									<tr>
+										<td><h6><small>Appointment Date</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="date" ng-model="formData.mb_apmb_date" ng-change="getTime()" placeholder="Please select Date"  data-input >
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Appointment Time</small></h6></td>
+										<td><h6><small>
+												<input class="form-control input-sm text-center"   type="submit" ng-click="openTicker()" value="Select time"<div class="form-control input-sm text-center" ng-model="formData.mb_apmb_time_sel" id="time-2" type="text" placeholder="hh:mm" aria-live="assertive" aria-label="Use up or down arrow keys to change time" />
+												
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>Service</small></h6></td>
+										<td><h6><small>                        
+											<select class="form-control input-sm text-center" ng-change="getService(formData.mb_practice)" ng-model="formData.mb_service_id">
+												<ombion ng-repeat="service in services" value="{{service.service_code}}">{{service.service_name}}</ombion>
+											</select>
+											</small></h6>
+										</td>
+									</tr>	
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createApmb()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Close</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>				
+					</table>			
+			  </form>
+	
+
+            </modal-body>
+            </div>
+        </modal>
+        
+	
+
+		<modal visible="showModal3" on-sown="modalThreeShown()" on-hide="modalOneHide()">
+            <modal-header title="Additional details for {{memberName}}"></modal-header>
+			<div class="modal-dialog" role="document">
+            <modal-body>
+			  <form ng-submit="submit()">
+				  <table class="table table-condensed">
+									<tr>
+										<td><h6><small>Postal Address</small></h6></td>
+										<td><h6><small>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add1" placeholder="Address line 1"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_add2" placeholder="Address line 2"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_post_code" placeholder="Code"></br>
+											
+									
+										</small></h6></td>
+									</tr>
+									<tr>
+										<td><h6><small>MAC club payment</small></h6></td>
+										<td><h6><small>
+											
+											
+											
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_asa" placeholder="ASA payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_asa" placeholder="ASA number"></br>
+
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_clothing" placeholder="Clothing payment"></br>
+									
+											<input class="form-control input-sm text-center" type="number" ng-model="formData.mb_pay_mac" placeholder="MAC payment"></br>
+											<input class="form-control input-sm text-center" type="text" ng-model="formData.mb_tag_mac" placeholder="MAC tag"></br>
+
+											
+									
+										</small></h6></td>
+									</tr>
+									
+									<tr><td>
+									<input class="btn md-button"  type="submit" ng-click="createDetails()" value="Submit"/><button class="btn md-button" ng-click="hide(1)">Cancel</button>
+									</td><td>
+									<h6><small><center>{{feedback}}</center></small></h6>
+									</td></tr>																		
+					</table>			
+			  </form>
+            </modal-body>
+
+           </div>
+        </modal>
+

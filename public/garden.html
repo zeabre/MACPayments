@@ -1,0 +1,74 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h4>Current GPIO Items <span class="label label-info">{{ GPIO.length }}</span></h4>
+        </p>
+        </div>
+		<form class="form-inline">
+			<div class="form-group">
+				<input type="text" ng-model="search" class="form-control input-xs" placeholder="Search">
+			</div>
+		</form>
+	</div>
+
+  <table class="table table-striped table-hover table-condensed">
+    <thead>
+      <th>Unit</th>
+      <th>Description</th>
+      <th>Status</th>
+
+    </thead>
+
+   <tbody>
+      <tr>
+        <td>Sprinkler 1</td>
+        <td>Main grass</td>
+ 
+      
+        <td ng-hide="garden[0].edit">
+          <a href="" class="fa fa-toggle-on" ng-click="togglePower(0)"></a>
+        </td>
+        <td ng-show="garden[0].edit">
+          <a href="" class="fa fa-toggle-off" ng-click="togglePower(0)"></a>
+        </td>
+      </tr>
+       <tr>
+        <td>Sprinkler 2</td>
+        <td>Main bedding</td>
+ 
+      
+        <td ng-hide="garden[1].edit">
+          <a href="" class="fa fa-toggle-on" ng-click="togglePower(1)"></a>
+        </td>
+        <td ng-show="garden[1].edit">
+          <a href="" class="fa fa-toggle-off" ng-click="togglePower(1)"></a>
+        </td>
+      </tr>
+    </tbody>
+    
+    </table>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="GPIO-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-sm text-center" placeholder="GPIO Name" ng-model="formData.GPIOname"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="GPIO Description" ng-model="formData.GPIODesc"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="GPIO Pin" ng-model="formData.Pin"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="GPIO Group" ng-model="formData.GPIOGroup"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Activity Length" ng-model="formData.length"></br>
+                        <input type="text" class="form-control input-sm text-center" placeholder="Activity Time" ng-model="formData.time"></br>
+
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-xs" ng-click="createGPIO()">Add GPIO</button>
+                </form>
+            </div>
+        </div>
+        
+        </div>

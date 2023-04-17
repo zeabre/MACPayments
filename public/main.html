@@ -1,0 +1,200 @@
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+ 
+          <div class="navbar-form navbar-left">
+
+            <h5>Athletes entered for races: {{ race.length }}</h5>
+          </div>
+
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		
+		  <form class="navbar-form navbar-right">
+			
+									
+									
+
+						<div id="datepicker" class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-th"></span>
+							</div>
+						</div>
+						
+				
+		  </form>
+
+	</div>
+  </div><!-- /.container-fluid -->
+</nav>
+			
+			<div class="panel panel-success">
+
+					
+					<table class="table table-condensed;table bg-success" >
+						<tr>
+							<td style="padding:0px">
+								<h4><small><div id="datepicker1"></div></small></h4>
+							</td>
+							<td>
+					
+					
+					<table class="table table-condensed table-striped" style="border:2px green solid;">
+							<thead>
+							  <th><small>&nbsp;</small></th>
+							  <th><small>Race ID</small></th>
+							  
+							  <th><small>Race Date</small></th>
+							   <th><small>Distance</small></th>
+
+								<th><small>Athletes</small></th>  
+								<th><small>Start Time</small></th>  
+			
+							  <th><small>Status</small></th> 
+							  <th><small>Select</small></th> 
+
+							</thead>
+
+						   <tbody>
+							   
+							  <tr ng-repeat-start="races in race|filter:search">
+								
+								<td ng-show="races.race_id">
+										<h5><small>
+											<a href="" class="fa fa-minus-square" ng-click="showRace(getRealIndex(races))" ng-if="races.race_id"></a>				
+										</small></h5>
+								</td>
+								<td ng-hide="races.race_id">
+										<h5><small>
+											<a href="" class="fa fa-plus-square" ng-click="showRace(getRealIndex(races))" ng-if="!races.race_id"></a>
+										</small></h5>
+								</td> 
+						 
+						 
+								
+								
+
+								<td><h5><small><b>{{races._id.race_id}}</b></small></h5></td>
+						 
+								<td><h5><small><b>{{races._id.race_date | date: "yyyy-MM-dd"}}</b></small></h5></td>
+						 
+								 <td><h5><small>{{races._id.race_distance}}</small></h5></td>
+								 <td><h5><small>{{races.numberofathletes}}</small></h5></td>
+								 <td><h5><small>{{races._id.race_start | date: "HH:mm:ss"}}</small></h5></td>
+							
+								
+							
+								<td>
+									<a href="" title="Appointment" class="fa fa-calendar-plus-o" ng-style="{'color': checkColor(patient.complete)}" ng-click="showM(1,'Appointment',getRealIndex(patient),'1')"></a>
+									<a href="" title = "Add files" class="fa fa-files-o" ng-click="showM(3,'File',getRealIndex(patient),'1')"></a>
+									<a href="" title="Authorisation" class="fa fa-credit-card" ng-style="{'color': checkColor(patient.auth)}" ng-click="showM(2,'Authorisation',getRealIndex(patient),'2')"></a>
+									<a href="" title="Sent to MFI"  ng-style="{'color': checkColor(patient.mfi_sent)}" class="fa fa-university" ng-click="showM(1,'Qualifications',getRealIndex(patient),'3')"></a>
+									<a href="" title="Report sent to doctor"  ng-style="{'color': checkColor(patient.rep_sent)}" class="fa fa-envelope-o" ng-click="showM(1,'Qualifications',getRealIndex(patient),'3')"></a>
+									
+								</td>
+								<td>
+									<h6><small>
+											<input type="checkbox" ng-model="formData.race_select[$index]">
+									</small></h6>
+								</td> 
+					
+							  <tr ng-if="races.race_id">
+									<td><small><b>&nbsp;</b></small></td>
+									<td><small><b>Member ID</b></small></td>
+									<td><small><b>ASA</b></small></td>
+									<td><small><b>Name</b></small></td>
+									<td><small><b>Race Start</b></small></td>
+									<td><small><b>Race End</b></small></td>
+									<td><small><b>Time</b></small></td>
+									<td><small><b>Gender</b></small></td>
+							 </tr>
+							  
+							  <tr ng-if="races.race_id" ng-repeat-end="" ng-repeat="athlete in raceDetails">
+								   <td><small><b>&nbsp;</b></small></td>
+									
+									<td> <h5><small>{{athlete.race_tag}}</small></h5></td>
+									<td> <h5><small>{{athlete.MemberDetails[0].mb_ASA}}</small></h5></td>
+									<td> <h5><small>{{athlete.MemberDetails[0].mb_fname + " " + athlete.MemberDetails[0].mb_sname}}</small></h5></td>
+									<td> <h5><small>{{athlete.race_start | date: "HH:mm:ss"}}</small></h5></td>
+									<td> <h5><small>{{athlete.race_end | date: "HH:mm:ss"}}</small></h5></td>
+									<td> <h5><small>{{getRealTime(athlete.race_time)}}</small></h5></td>
+									<td> <h5><small>{{athlete.MemberDetails[0].gender}}</small></h5></td>
+							  </tr>
+								<tr ng-if="no_bookings">
+									<td colspan=8><div align="center"><h5><small>There are no entries for today.</small></h5></div></td>
+								</tr>
+																	
+							</tbody>
+							
+						</table>
+						<div align="center"><h5><a href="" ng-click="openRaceTime(1,'1')"><i class="fa fa-male"></i> Start the Race!</a></h5></div></br></br>
+						
+						<div align="center"><h5><a href="" ng-click="showM(2,'1')"><i class="fa fa-male"></i> Staggered Start!</a></h5></div></br></br>
+					<form>
+						<div align="center"><h5>Latest finisher: <input type="text" class="form-control input-sm text-center" placeholder="Athlete Tag" id="race_finish" name="race_finish" ng-model="formData.race_finisher"><button type="submit" class="btn btn-primary btn-xs" ng-click="updateAthlete()">...</button></h5></div>
+					</form>
+						</td>
+					</tr>
+					
+				</table>
+	
+
+
+	</div>
+     
+    <modal id="MyModal2" visible="showModal2" on-sown="modalTwoShown()" class="modal" on-hide="modalTwoHide()">
+            <modal-header title="Staggered Start"></modal-header>
+			<div class="modal-dialog modal-xl" role="document">
+            <modal-body>
+
+
+				
+			  <form>
+				  <audio id="audio" src="beep.wav" autoplay="false"  muted="true"></audio>
+				  
+				  <table class="table table-condensed">
+							<tbody>
+									<tr ng-repeat="raceT in racesToStart">
+										<td><h1>
+											{{raceT.race_date | date: "dd-MM-yyyy"}}
+										</h1></td>
+										<td><h1>
+											Staggered Start TT
+										</h1></td>
+									</tr>
+									<tr>
+										<td><h1>Counter ... </h1></td>
+										<td><h1> 
+											<div id="feedback2"></div>                       
+										
+											</h1>
+										</td>
+									</tr>	
+									<tr>
+										<td><h1>Current Time </h1></td>
+										<td><h1> 
+											<div id="feedbackTime"></div>                       
+											
+											</h1>
+										</td>
+									</tr>	
+									<tr><td>
+									<button class="btn md-button" ng-click="hide(2)">Close</button>
+									</td><td>
+									<h6><small><center>{{feedback2}}</center></small></h6>
+									</td></tr>	
+			<tr><td>
+			
+						<div align="center"><h5>Latest finisher: <input type="text" class="form-control input-sm text-center" placeholder="Athlete Tag" id="race_finish" name="race_finish" ng-model="formData.race_finisher"><button type="submit" class="btn btn-primary btn-xs" ng-click="updateStaggeredAthlete()">...</button></h5></div>
+			
+			</td></tr>
+							</tbody>				
+					</table>			
+			  </form>
+	
+
+            </modal-body>
+            </div>
+        </modal>    
+        

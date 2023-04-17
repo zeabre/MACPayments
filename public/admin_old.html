@@ -1,0 +1,80 @@
+<div class="panel panel-success" ng-app="scotchVendor">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h4> </h4>
+        </p>
+        </div>
+        <div class="panel-body">
+          <button class="btn btn-primary" ng-click="resetVendors()">Clear Filter</button>
+			Current Filter: {{filter}}
+		</div>
+	</div>
+
+  <table class="table table-striped">
+    <thead>
+      <th>Person No</th>
+      <th>First Name</th>
+      <th>Surname</th>
+      <th>Entry Date</th>
+      <th>Leave Date</th>
+    </thead>
+
+   <tbody>
+      <tr ng-repeat="resource in resources">
+        <td ng-hide="resource.edit"><a href="" ng-click="filterByName(resource.PersonNo)">{{resource.PersonNo}}</a></td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.PersonNo"></td>
+ 
+        <td ng-hide="resource.edit">{{resource.fname}}</td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.fname"></td>
+ 
+        <td ng-hide="resource.edit">
+          <a href="" ng-click="filterByGenre(resource.sname)">{{resource.sname}}</a>
+        </td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.sname"></td>
+ 
+        <td ng-hide="resource.edit">
+          <a href="" ng-click="filterByGenre(resource.EntryDate)">{{resource.EntryDate | date: "yyyy-MM-dd"}}</a>
+        </td>
+        <td ng-show="resource.edit"><input type="text" ng-model="resource.EntryDate"></td>
+ 
+         <td ng-hide="resource.edit">
+          <a href="" ng-click="filterByGenre(resource.LeaveDate)">{{resource.LeaveDate | date: "yyyy-MM-dd"}}</a>
+        </td>
+        <td ng-show="resource.edit"><input type="text" ng-model="vendor.LeaveDate"></td>
+  
+        <td ng-hide="resource.edit">
+          <button class="btn btn-success" ng-click="toggleEdit($index)">Edit</button>
+          <button class="btn btn-danger" ng-click="deleteResource(resource._id)">Delete</button>
+        </td>
+        <td ng-show="resource.edit">
+          <button class="btn btn-primary" ng-click="updateResource($index)">Save</button>
+          <button class="btn btn-danger" ng-click="toggleEdit($index)">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+    
+    </table>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="vendor-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="Vendor Name" ng-model="formData.vname"></br>
+                        <input type="text" class="form-control input-lg text-center" placeholder="Vendor Contact First Name" ng-model="formData.fname"></br>
+                        <input type="text" class="form-control input-lg text-center" placeholder="Vendor Contact Last Name" ng-model="formData.sname"></br>
+                        <input type="text" class="form-control input-lg text-center" placeholder="Vendor Contact email" ng-model="formData.email"></br>
+                        <input type="text" class="form-control input-lg text-center" placeholder="Vendor Contact tel number" ng-model="formData.telnum"></br>
+
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary" ng-click="createVendor()">Add</button>
+                </form>
+            </div>
+        </div>
+        
+        </div>

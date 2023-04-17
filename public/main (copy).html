@@ -1,0 +1,150 @@
+
+<div class="panel panel-success">
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h6><strong>Patients Booked <span class="label label-info">{{ patients.length }}</span></strong></h6>
+        </p>
+        </div>
+</div>
+			<nav class="navbar navbar-default">
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">Practices</a>
+					</div>
+			
+					<div>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="" ng-click="findPatientsPerPractice('all')" ng-class="{active:activeTab === 'main'}">All</a></li>
+							<li ng-repeat="practice in practices"><a href="" ng-click="findPatientsPerPractice(practice.practice_location)" ng-class="{active:activeTab === 'main'}">{{practice.practice_location}}</a></li>
+							
+						</ul>
+					</div>
+              
+				</div>
+            </nav>
+			
+			<div class="panel panel-success">
+				<div class="panel-heading">
+				  <table class="table table-condensed">
+							<thead>
+							  <th><small>...</small></th>
+							  <th><small>Practice</small></th>
+							  <th><small>Appt Date</small></th>
+							  <th><small>Patient name</small></th>  
+							  <th><small>Med Aid</small></th> 
+							  <th><small>Status</small></th> 
+							  <th><small>Edit</small></th> 
+							</thead>
+
+   <tbody>
+	   
+      <tr ng-repeat-start="patient in patients">
+		
+		<td ng-show="patient.appt">
+				<h6><small>
+					<a href="" class="fa fa-minus-square" ng-click="showAppts(getRealIndex(patient))" ng-if="patient.appt"></a>				
+				</small></h6>
+        </td>
+		<td ng-hide="patient.appt">
+				<h6><small>
+					<a href="" class="fa fa-plus-square" ng-click="showAppts(getRealIndex(patient))" ng-if="!patient.appt"></a>
+				</small></h6>
+        </td> 
+ 
+ 
+         <td ng-hide="patient.edit"><h6><small>{{patient.pt_practice}}</small></h6></td>
+        <td ng-show="patient.edit"><h6><small><input type="text" ng-model="patient.pt_practice"></small></h6></td>
+        
+        
+
+ 
+        <td ng-hide="patient.edit"><h6><small>{{patient.pt_appt | date: "yyyy-MM-dd"}}</small></h6></td>
+        <td ng-show="patient.edit"><h6><small><input type="date" ng-model="resource.LeaveDate"></small></h6></td>
+  	
+        <td><h6><small>{{patient.pt_fname}} {{patient.pt_sname}}</small></h6></td>
+        
+        <td><h6><small>{{patient.pt_medaid_name}}</small></h6></td>
+
+        <td ng-hide="patient.edit">
+			<a href="" title="Legal" class="fa fa-gavel" ng-style="{'color': checkColor(patient.fLegal)}" ng-click="showM(1,'Legal',getRealIndex(patient),'1')"></a>
+			<a href="" title="A3" class="fa fa-money" ng-style="{'color': checkColor(patient.fA3)}" ng-click="showM(1,'A3',getRealIndex(patient),'2')"></a>
+			<a href="" title="Qualifications"  ng-style="{'color': checkColor(patient.fQualifications)}" class="fa fa-university" ng-click="showM(1,'Qualifications',getRealIndex(patient),'3')"></a>
+			<a href="" title="HR setup"  ng-style="{'color': checkColor(patient.fHR)}" class="fa fa-address-card-o"></a>
+			<a href="" title="Access Control"  ng-style="{'color': checkColor(patient.fAccess)}" class="fa fa-id-badge"></a>
+			<a href="" title="Laptop"  ng-style="{'color': checkColor(patient.fLaptop)}" class="fa fa-id-laptop"></a>
+			</td>
+        <td ng-show="patient.edit"><a href="" class="fa fa-bank"></a></td>
+         
+        <td ng-hide="patient.edit">
+          <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(patient))"></a>
+          <a href="" class="fa fa-file" ng-click="showM(1,'Calendar',getRealIndex(patient),'1')"></a>
+          <a href="" class="fa fa-calendar" ng-click="showM(2,'Calendar',getRealIndex(patient),'1')"></a>
+        </td>
+        <td ng-show="patient.edit">
+          <a href="" class="fa fa-save" ng-click="updateResource2(getRealIndex(patient))"></a>
+          <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(patient))"></a>
+          <a href="" class="fa fa-file" ng-click="showM(1,'Calendar',getRealIndex(patient),'1')"></a>
+          <a href="" class="fa fa-calendar" ng-click="showM(2,'Calendar',getRealIndex(patient),'1')"></a>
+        </td>
+      </tr>
+      <tr ng-if="patient.appt" ng-repeat-end="">
+            <td colspan=7>
+
+				<div ng-repeat="patientDetail in patient.PatientDetails">
+					<h6><small>{{patientDetail.appt_date | date: "HH:mm dd-MM-yyyy"}} - {{patientDetail.service_code}}</small></h6>
+				</div>
+            </td>
+      </tr>
+    </tbody>
+    </table>
+
+{{}}
+
+		<modal visible="showModal1" on-sown="modalOneShown()" on-hide="modalTwoHide()">
+            <modal-header title="File Upload"></modal-header>
+            <modal-body>
+
+			<div ng-controller="UploadController">
+				
+			  <form ng-submit="submit()">
+
+				{{fileType}} documents for {{ResourceID}}
+				<legend>Upload a new file here:</legend>
+				<label for="name">Name:</label>
+				<input type="text" name="name" ng-model="uname" required/>
+				<br/>
+				<label for="file">File:</label>
+				<input type="file" name="file" id="file" ng-model="ufile" ngf-select ngf-max-size="25MB" required/>
+				<br/>
+				<input type="submit" value="Submit"/>
+				{{Results}}
+
+			  </form>
+			  				
+			 </div>
+            </modal-body>
+            <modal-footer>
+                <button class="btn btn-primary"  ng-click="hide(1)">Close</button>
+            </modal-footer>
+        </modal>
+        
+		<modal visible="showModal2" on-sown="modalTwoShown()" on-hide="modalOneHide()">
+            <modal-header title="Normal"></modal-header>
+            <modal-body>
+				<div ng-controller="UploadController">
+				
+					<form ng-submit="submit()">	
+						<h3>This is modal body</h3>
+
+							<input type="submit" value="Submit"/>
+			  </form>
+			  				
+			 </div>
+            </modal-body>
+            <modal-footer>
+                <button class="btn btn-primary"  ng-click="hide(1)">Close</button>
+            </modal-footer>
+        </modal>
+        </modal>
+</div>
+	

@@ -1,0 +1,94 @@
+<div class="panel panel-success">
+
+		
+		<table class="table table-condensed;table bg-success" >
+			<tr>
+				<td style="padding:0px">
+					<h4><small><div id="datepicker1"></div></small></h4>
+				</td>
+				<td>
+		
+		
+		<table class="table table-condensed table-striped" style="border:2px green solid;">
+			<thead>
+				<th><small>&nbsp;</small></th>
+				<th><small>Athlete</small></th>
+				<th><small>ID</small></th>
+				
+				<th><small>Tag</small></th>
+				<th><small>5km PB</small></th>
+				<th><small>Actions</small></th>
+		 
+			</thead>
+
+		   <tbody ng-repeat="athlete in nameDetails|filter:search">
+			  <tr>
+												
+				<td ng-show="athlete.member_id">
+						<h5><small>
+							<a href="" class="fa fa-minus-square" ng-click="showRace(getRealIndex(athlete))" ng-if="athlete.member_id"></a>				
+						</small></h5>
+				</td>
+				<td ng-hide="athlete.member_id">
+						<h5><small>
+							<a href="" class="fa fa-plus-square" ng-click="showRace(getRealIndex(athlete))" ng-if="!athlete.member_id"></a>
+						</small></h5>
+				</td> 
+		 
+				<td ng-hide="athlete.edit"><h6><small><div class="newline">{{athlete.mb_fname + " " + athlete.mb_sname}}</div></small></h6></td>
+				<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.athlete_name"></small></h6></td>
+		 
+								<td ng-hide="athlete.edit"><h6><small>{{athlete.mb_ID}}</small></h6></td>
+								<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.mb_ID"></small></h6></td>
+
+								<td ng-hide="athlete.edit"><h6><small>{{athlete.mb_tag}}</small></h6></td>
+								<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.mb_tag"></small></h6></td>
+
+							
+								<td ng-hide="athlete.edit"><h6><small>{{showTime(athlete.mb_5kmAvg)}}</small></h6></td>
+								<td ng-show="athlete.edit"><h6><small><input type="text" ng-model="athlete.mb_5kmAvg"></small></h6></td>
+
+		  
+			        <td ng-hide="athlete.edit"> 
+					  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(athlete),'1')"></a>
+					  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(athlete),'1')"></a>
+					  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(athlete))"></a>
+					  <a href=""  class="fa fa-trash-o" ng-click="deleteResource(athlete._id)"></a>
+					</td>
+					<td ng-show="athlete.edit">
+					  <a href="" class="fa fa-save" ng-click="updateResource(getRealIndex(athlete))"></a>
+					  <a href="" class="fa fa-undo" ng-click="toggleEdit(getRealIndex(athlete))"></a>
+					</td>
+					 <tr ng-if="athlete.member_id">
+							<td><small><b>&nbsp;</b></small></td>
+						
+							<td><small><b>Race ID</b></small></td>
+							<td><small><b>Race Date</b></small></td>
+						
+							<td><small><b>Race Start</b></small></td>
+							<td><small><b>Race End</b></small></td>
+							<td><small><b>Time</b></small></td>
+					 </tr>
+							  
+					  <tr ng-if="athlete.member_id" ng-repeat-end="" ng-repeat="race in raceDetails">
+							<td><small><b>&nbsp;</b></small></td>
+							
+							<td> <h5><small>{{race.race_id}}</small></h5></td>
+							<td> <h5><small>{{race.race_date | date: "yyyy-MM-dd"}}</small></h5></td>
+						
+							<td> <h5><small>{{race.race_start | date: "HH:mm:ss"}}</small></h5></td>
+							<td> <h5><small>{{race.race_end | date: "HH:mm:ss"}}</small></h5></td>
+							<td> <h5><small>{{getRealTime(race.race_time)}}</small></h5></td>
+					  </tr>
+						<tr ng-if="no_races">
+							<td colspan=8><div align="center"><h5><small>There are no races for this athlete.</small></h5></div></td>
+						</tr>
+			  
+			</tbody>
+			
+			</table>
+			</td>
+			</tr>
+		</table>
+	</div>
+	

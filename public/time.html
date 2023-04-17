@@ -1,0 +1,44 @@
+
+					
+				  <form name="timer">
+				  <audio id="audio" src="beep.wav" autoplay="false"  muted="true"></audio>
+				  
+				  <table class="table table-condensed">
+							<tbody>
+									<tr>
+										<td colspan=2> 
+											<div align="center" id="feedback2" class="timing"></div>                       
+											
+											
+										</td>
+									</tr>	
+									<tr>
+										
+										<td colspan=2>
+											<div align="center" id="feedbackTime"  class="timing"></div>                       
+											
+											
+										</td>
+									</tr>
+									<tr>
+										<td>
+			
+											<form>
+												<div align="center"><h2>Latest finisher: <input type="text" class="form-control input-sm text-center" placeholder="Athlete Tag" id="race_finish" name="race_finish" ng-model="formData.race_finisher"><button type="submit" class="btn btn-primary btn-xs" ng-click="updateAthlete()">...</button></h2></div>
+											</form>
+										</td>
+										<td>
+											<table>
+												<tr><td width="20%"><div align="center" id="feedbackFinisher"  class="timingName"></div></td></tr>
+												<tr><td><div align="center" id="feedbackFinisherTime"  class="timingName"></div></td></tr>
+											</table>
+										</td>
+									</tr>
+		
+								
+							</tbody>				
+					</table>			
+			  </form>				
+					
+
+	

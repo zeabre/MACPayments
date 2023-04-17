@@ -1,0 +1,29 @@
+<div class="panel panel-success">
+        <!-- HEADER AND TODO COUNT -->
+        <div class="panel-heading">
+        <p class="bg-primary">
+            <h4>Register</h4>
+        </p>
+        </div>
+</div>
+<div ng-controller="RegisterController">
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" name="username" id="username" class="form-control" ng-model="locals.username" required />
+        </div>
+        <div class="form-group">
+            <label for="ID">ID</label>
+            <input type="text" name="lastName" id="ID" class="form-control" ng-model="locals.ID" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="locals.password" required />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-click="register()">Register</button>
+            <a href="#login" class="btn btn-link">Cancel</a>
+        </div>
+                <h4><small><center><b>{{feedback}}</b></center></small></h4>
+    </form>
+</div>
