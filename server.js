@@ -21,6 +21,7 @@
     var CryptoJS 				= require("crypto-js");
     var FTPClient 				= require('ftp');
 	var MobileResult 			= 1;
+    var axios                   = require('axios')
 
     const http2 				= require("https");
 	const qs 					= require("querystring");   
@@ -1394,6 +1395,33 @@ async function WrapSendMail(){
     
     
     });
+
+
+    app.post('/api/payshop', function(req,res,next) {
+        const SECRET_KEY = 'sk_live_a1051961Q48825E24a946469744d'
+
+        axios.post(
+          'https://online.yoco.com/v1/charges/',
+          {
+            token: req,
+            amountInCents: 299,
+            currency: 'ZAR',
+          },
+          {
+            headers: {
+              'X-Auth-Secret-Key': SECRET_KEY,
+            },
+          },
+        )
+        .then(res => {
+    	        res.status(200).send(res.data);
+            })
+        .catch(error => {
+          // handle errors
+        })
+
+    });
+
     
     
 	app.get('/api/bookings/:practice_tech/:sYear/:sMonth/:sDay', function(req, res, next) {

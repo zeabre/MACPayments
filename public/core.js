@@ -2211,7 +2211,20 @@ angular.module('scotchApp')
 					  const errorMessage = result.error.message;
 					  alert("error occured: " + errorMessage);
 					} else {
+
 					  alert("card successfully tokenised: " + result.id);
+
+                     $http.post('/api/payshop', result.id)
+                                .success(function(data) {
+                                    console.log(data);
+
+                                })
+                                .error(function(data) {
+                                    console.log('Error: ' + data);
+                                });
+
+
+
 					}
 					// In a real integration - you would now pass this chargeToken back to your
 					// server along with the order/basket that the customer has purchased.
