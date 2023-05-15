@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 	<link rel="stylesheet" href="stylesheets/appointment-picker.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+	<link rel="stylesheet" href="stylesheets/shopping_style.css" />
 
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
@@ -69,6 +70,15 @@
                 font-size:      70px;
                 font-weight:    bold;
             }
+
+			.macWS
+						{
+				line-height: 62px;
+				font-family: "Lato", Helvetica, Arial, sans-serif;
+				font-weight: 300;
+				letter-spacing: 0.10em;
+			/*!	text-transform: uppercase; */
+			}
         </style>
 
 
@@ -85,84 +95,42 @@
 								
 														<div ng-controller="LoginController" style="border:0px white solid;padding:0px;">
 
-																<div class="panel panel-success" style="border:0px white solid;padding:0px;">
+
 							 
-																	 <div class="panel-body" style="padding:0px;border:0px white solid;">
-																		 <div ng-if="!timing">
-																			<nav class="navbar navbar-default" style="padding:0px;border:0px white solid;" >
+
+																			<nav class="navbar navbar-default" style="background-color:white;padding:0px;border:0px white solid;" >
 																						<div class="container-fluid" style="background-color:white;border:0px white solid;padding:0px;">
-																							<div ng-if="!timing">
-																													<div class="navbar-header">
-																														<img src="images/mac-large-1.jpg">
-																													</div>
-																							</div>
+
 																													<div ng-if="loggedin_user !=''">
-																														<div ng-if="!timing">
-																														<div ng-if="user.admin">
-																															<div ng-if="isMobile < 0">
-																																<ul class="nav navbar-nav navbar-right">
-																																	<li><a href="#main" ng-class="{active:activeTab === 'main'}"><i class="fa fa-home"></i> Home</a></li>
-																																	<li><a href="#member"><i class="fa fa-male"></i> Member</a></li>
-																																	<li><a href="#race"><i class="fa fa-user-md"></i> Race</a></li>
-																																	<li><a href="#shop"><i class="fa fa-shopping-basket"></i> Shop</a></li>
-																																	
-																																	<li><a href="#register"><i class="fa fa-female"></i> Register</a></li>
 
-
-																																	
-																																	<ul class="nav navbar-nav navbar-right">
-
-																																	 <li class="dropdown">
-																																			<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-																																				<ul class="dropdown-menu">
-																																					<li><a href="#cash"><i class="fa fa-money"></i> Cash takings</a></li>
-																																					<li><a href="#history"><i class="fa fa-history"></i> History</a></li>
-																																					<li><a href="#poll"><i class="fa fa-poll"></i> Poll</a></li>
-																																					<li><a href="#question"><i class="fa fa-question"></i> Question</a></li>
-																																					<li><a href="#history"><i class="fa fa-archive"></i> Archive</a></li>
-																																					
-																																				</ul>
-																																	  </li>
-																																	  <li><a href="#logout"><i class="fa fa-sign-out"></i> Logout</a></li>
-																																	  <li>&nbsp;&nbsp;&nbsp;</li>
-																																</ul>
-																															</div>
-																														</div>
-																														<div ng-if="!user.admin">
-																															<div ng-if="isMobile < 0">
-																																<ul class="nav navbar-nav navbar-right">
+																														<div ng-if="isMobile < 0" class="macWS">
+																																<ul class="nav navbar-nav navbar-right" >
 																																	<li><a href="#membermain"><i class="fa fa-user-circle-o"></i> Main</a></li>
 																																	<li><a href="#memberprofile"><i class="fa fa-male"></i> Profile</a></li>
 																																	<li><a href="#memberdocuments"><i class="fa fa-book"></i> Documents</a></li>
 																																	<li><a href="#memberhistory"><i class="fa fa-archive"></i> History</a></li>
 																																	<li><a href="#memberphotos"><i class="fa fa-camera"></i> Photos</a></li>
+																																	<li><a href="#shop"><i class="fa fa-shopping-basket"></i> Shop</a></li>
 
 
-																																	
 																																	<ul class="nav navbar-nav navbar-right">
 
 																																	  <li><a href="#logout"><i class="fa fa-sign-out"></i> Logout</a></li>
 																																	  <li>&nbsp;&nbsp;&nbsp;</li>
+																																	</ul>
 																																</ul>
-																															</div>
-																														</div>																														
-																													</div> 
+																														</div>
+
 																													
 																													</div>         
 																						</div>
 																			</nav>
-																			</div>
 																											<div id="index">
 																												<div ng-view></div>
 
 																											</div>
-																			
-																			
-																	</div>
-																	<div ng-if="!timing">
-																		<div class="panel-footer" align="center"><h5><small>Copyright Gawie van der Schyf 2023</small></h5></div>
-																	</div>
-								  </div>
+
+
 
 								</div>
 								

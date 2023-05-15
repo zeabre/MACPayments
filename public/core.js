@@ -203,15 +203,23 @@
 			console.log(next);
 			AuthService.getUserStatus()
 			.then(function() {
-				if ( typeof next.data === 'undefined' )
+
+				if ( typeof next.data === 'undefined' && SessionService.get("userData").fname === "")
 				{
+				    console.log("Inside this fucker 1");
 					$rootScope.activeTab  = 'login';
 					next.access = 'restricted';
 				} else {
-					$rootScope.activeTab = next.data.activeTab;
+
+				   if (typeof next.data  != 'undefined') {
+					    $rootScope.activeTab = next.data.activeTab;
+					} else {
+				        $rootScope.activeTab = "membermain";
+					}
 				}
 				if(next.access.restricted && AuthService.isLoggedIn() === false) {
-					$location.path('/login');	
+				    console.log("Inside this fucker 2");
+                	$location.path('/login');
 					$route.reload();
 				} else {
 					if (AuthService.isLoggedIn() === false) {
@@ -219,11 +227,11 @@
 					} else {
 						AuthService.getUserName().then(function(data){
 							console.log("Controller - " + JSON.stringify(data, null, 2) + " - ");
-							$rootScope.loggedin_user = data.user.fname;
-							$rootScope.ID = data.user.ID;
-							$rootScope.user = data.user;
+							$rootScope.loggedin_user = SessionService.get("userData").fname;
+							$rootScope.ID = SessionService.get("userData").ID;
+							$rootScope.user =SessionService.get("userData");
 							$rootScope.timing = false;
-							$rootScope.API_mb_ID = data.user.ID;
+							$rootScope.API_mb_ID = SessionService.get("userData").ID;
 						
 							$rootScope.isMobile = JSON.stringify(data.md, null, 2);
 							if ($rootScope.isMobile > 0 ) {
@@ -234,7 +242,11 @@
 						});
 					}
 				}
-			});
+			})
+            .catch(function() {
+                console.log("Fuck it all");
+
+            });
 		});
 	
 	};
@@ -1931,7 +1943,7 @@ angular.module('scotchApp')
 
 
 angular.module('scotchApp')
-	.controller('MemberMainController',function($scope, $http, SessionService) {
+	.controller('MemberMainController',function($scope, $http, $document, $window, SessionService) {
 			var old_index = -10;
 			$scope.thecolor = "green"
 			$scope.bodyText = "";
@@ -2000,7 +2012,11 @@ angular.module('scotchApp')
 
 		 $http.get('/api/memberprofile/' + SessionService.get("userID").replace(/['"]+/g, ''))
   		.success(function(data) {
-				$scope.memberDetails = data;
+
+				console.log("Inside this fucker");
+
+
+            	$scope.memberDetails = data;
 				$scope.originalDetails = data;
 				console.log(data);
 				if (data.length == 0) {
@@ -2173,33 +2189,43 @@ angular.module('scotchApp')
 
 		 $http.get('/api/shop')
   		.success(function(data) {
-					console.log("Shop Controller Scope: " + JSON.stringify($scope.user, null, 2));
-		
-					console.log("Loading shop");
-				  // Replace the supplied `publicKey` with your own.
-				  // Ensure that in production you use a production public_key.
-				  var sdk = new window.YocoSDK({
-					publicKey: 'pk_live_602f96d2JvWWGPl576e4'
-				  });
+					console.log("Shop Controller Scope: " + $scope.user);
+			        console.log("Loading shop");
 
-				  // Create a new dropin form instance
-				  var inline = sdk.inline({
-					layout: 'Basid',
-					amountInCents: 2499,
-					currency: 'ZAR'
-				  });
-				  // this ID matches the id of the element we created earlier.
-				  inline.mount('#card-frame');
+
+                    $scope.products = data;
+                    $scope.originalProducts = data;
+                    console.log(data);
+
+
+
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+
 	 	
-	
+	$scope.payAmount2 = function() {
+	      var sdk = new window.YocoSDK({
+            publicKey: 'pk_live_602f96d2JvWWGPl576e4'
+          });
+
+          // Create a new dropin form instance
+          var inline = sdk.inline({
+            layout: 'Basid',
+            amountInCents: 2499,
+            currency: 'ZAR'
+          });
+          // this ID matches the id of the element we created earlier.
+          inline.mount('#card-frame');
+    }
+
+
 	$scope.payAmount = function() {
 			var yoco = new window.YocoSDK({
 			publicKey: 'pk_live_602f96d2JvWWGPl576e4'
-			  });
+		//	publicKey: 'pk_test_71d06dd3JvWWGPl518d4'
+        			  });
 				yoco.showPopup({
 				  amountInCents: 299,
 				  currency: 'ZAR',
@@ -2214,7 +2240,8 @@ angular.module('scotchApp')
 
 					  alert("card successfully tokenised: " + result.id);
 
-                     $http.post('/api/payshop', result.id)
+
+                     $http.post('/api/payshop', {token:result.id})
                                 .success(function(data) {
                                     console.log(data);
 
@@ -4707,15 +4734,19 @@ angular.module('scotchApp')
 			function getUserStatus() {
 				return $http.get('/api/status')
 				.success(function(data) {
-					if(data.status) {
-						user = true;
-					} else {
-						user = false;
-					}
-				})
+                console.log("sname: ***"  + SessionService.get("sname") + "***");
+                if (SessionService.get("sname") != null) {
+                        user = true;
+                } else
+                {
+                        user = false;
+                }
+                })
 				.error(function(data) {
 					user = false;
 				});
+
+
 			}
 			function getIsMobile() {
 				
@@ -4735,12 +4766,15 @@ angular.module('scotchApp')
 				var deferred = $q.defer();
 				$http.post('/api/login',{username:username,password:password})
 				.success(function(data,status) {
-				
+                    //console.log("data user: " + JSON.stringify(data.user, null, 2));
+				    SessionService.set("userData", JSON.stringify(data.user, null, 2));
 					SessionService.set("admin", JSON.stringify(data.user.admin, null, 2));
 					SessionService.set("userID", JSON.stringify(data.user.ID, null, 2));
 					SessionService.set("mbTag", JSON.stringify(data.user.mb_tag, null, 2));
-				
-					if (status ===200 && data.status) {
+					SessionService.set("fname", JSON.stringify(data.user.fname, null, 2));
+                	SessionService.set("sname", JSON.stringify(data.user.sname, null, 2));
+                    if (status ===200 && data.status) {
+                        console.log("User: " + SessionService.get("fname")  + " logged in.");
 						user = true;
 						deferred.resolve();
 						SessionService.set("regFeedback", data.status);

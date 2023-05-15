@@ -241,7 +241,19 @@
 
 		});
 		var Admin = mongoose.model('Admin',AdminSchema);
-		
+
+
+        var ProductSchema = new Schema({
+            imagePath: {type: String, required: true},
+            title: {type: String, required: true},
+            description: {type: String, required: true},
+            price: {type: Number, required: true},
+        });
+
+        var Product = mongoose.model('Product', ProductSchema);
+
+
+
 	passport.use(new LocalStrategy(Account.authenticate()));
 	passport.serializeUser(Account.serializeUser());
 	passport.deserializeUser(Account.deserializeUser());
@@ -407,10 +419,11 @@
 	app.post('/api/login', function(req, res, next) {
 		console.log('In new login');
 		console.log(req.passport);
+
 		console.log("***");
-		
 		console.log(req.body);
-		
+		console.log("***");
+
 		passport.authenticate('local', function(err, user, info) {
 			if (err) {
 				return next(err);
@@ -918,11 +931,11 @@ async function WrapSendMail(){
 					});
 					
 					res.setHeader('Content-type','text/html')
-					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='http://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br></b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br>Results will be available shortly, and will be implemented during the next period. </br></br>Thank you for taking the time to make this a wonderful club!</div></td></tr></table></div></body></html>");
+					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='https://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br></b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br>Results will be available shortly, and will be implemented during the next period. </br></br>Thank you for taking the time to make this a wonderful club!</div></td></tr></table></div></body></html>");
 					//res.render("MAC Poll", { title: "Melkbos Athletic Club", message: "Thank you for your response" });
 				} else {
 					res.setHeader('Content-type','text/html')
-					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='http://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br>This poll has closed.</b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br></div></td></tr></table></div></body></html>");
+					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='https://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br>This poll has closed.</b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br></div></td></tr></table></div></body></html>");
 			
 				}
 					
@@ -1009,11 +1022,11 @@ async function WrapSendMail(){
 					});
 					
 					res.setHeader('Content-type','text/html')
-					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='http://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br></b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br>Results will be available shortly, and will be implemented during the next period. </br></br>Thank you for taking the time to make this a wonderful club!</div></td></tr></table></div></body></html>");
+					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='https://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br></b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br>Results will be available shortly, and will be implemented during the next period. </br></br>Thank you for taking the time to make this a wonderful club!</div></td></tr></table></div></body></html>");
 					//res.render("MAC Poll", { title: "Melkbos Athletic Club", message: "Thank you for your response" });
 				} else {
 					res.setHeader('Content-type','text/html')
-					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='http://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br>This poll has closed.</b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br></div></td></tr></table></div></body></html>");
+					res.status(200).send("<html><body><div align='center'><table style='width:350'><tr><td><div align='center'><img width='250' height='250' src='https://zeabre.tplinkdns.com:3300/images/mac.jpg'/></div></td></tr><tr><td></br><b><div style='font-size:30px;font-family:tahoma'></br>This poll has closed.</b></div></td></tr><tr><td><div style='font-size:30px;font-family:tahoma'></br></div></td></tr></table></div></body></html>");
 			
 				}
 					
@@ -1389,23 +1402,25 @@ async function WrapSendMail(){
     });
     
     
-    app.get('/api/shop', function(req, res, next) {
 
-      			res.status(200).send("YOCO");
-    
-    
-    });
 
 
     app.post('/api/payshop', function(req,res,next) {
         const SECRET_KEY = 'sk_live_a1051961Q48825E24a946469744d'
+//        const SECRET_KEY = 'sk_test_9a16f53bQ48825E6fee49b7bb05c'
+
+        console.log(req.body);
+
 
         axios.post(
           'https://online.yoco.com/v1/charges/',
           {
-            token: req,
+            token: req.body.token,
             amountInCents: 299,
             currency: 'ZAR',
+            name: 'MAC NODEJS API - LIVE TEST',
+            description: 'MAC NodeJS Live',
+            metadata : {'name' : 'MAC NODEJS API - TEST META'}
           },
           {
             headers: {
@@ -1413,17 +1428,25 @@ async function WrapSendMail(){
             },
           },
         )
-        .then(res => {
-    	        res.status(200).send(res.data);
+
+        .then(function(feedback) {
+                console.log('*** Result Start ***');
+                console.log(feedback.data);
+                console.log('*** Result End ***');
+    	        res.status(200).send(feedback .data);
             })
-        .catch(error => {
-          // handle errors
-        })
+        .catch(function(error) {
+                  console.log('*** Error Start ***');
+                  console.log(error);
+                  console.log('*** Error End ***');
+                  res.status(200).send(error);
+        });
+
+
 
     });
 
-    
-    
+
 	app.get('/api/bookings/:practice_tech/:sYear/:sMonth/:sDay', function(req, res, next) {
 
 		console.log('Param: ' + req.params.practice_tech);
@@ -2405,11 +2428,37 @@ async function WrapSendMail(){
 	}
 
 
+///////////////////////////////////
+///////////////////// Shopping cart
+///////////////////////////////////
+
+
+    app.get('/api/shop', function(req, res, next) {
+        // use mongoose to get all questions in the database
+               Product.find(function(err, products) {
+
+                   // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                   if (err)
+                       res.send(err)
+       		    console.log("Returning values: " + JSON.stringify(products, null, 2));
+       		    res.json(products); // return all questions in JSON format
+               });
+    });
+
+
+
+
+
+
+
+
+
+
     // listen (start app with node server.js) ======================================
     
     
-    //http2.createServer(options,app).listen(3300,  function ( err , result ) {
-    app.listen(3300,  function ( err , result ) {
+    http2.createServer(options,app).listen(3301,  function ( err , result ) {
+    //app.listen(3301,  function ( err , result ) {
     if (err) {
 		console.log("Fucking Error: " + err);
 	} else { 
@@ -2419,7 +2468,7 @@ async function WrapSendMail(){
 	}}
 	);
 	console.log(app.settings );
-    console.log("App listening on port 3300");
+    console.log("App listening on port 3301");
     
     const client = new NTP('0.za.pool.ntp.org', 123, { timeout: 5000 });
  

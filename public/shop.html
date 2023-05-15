@@ -1,24 +1,13 @@
-<div class="panel panel-success">
 
-		
-		<table class="table table-condensed;table bg-success" >
-			<tr>
-				<td>
-				
-		
-		
-		<table class="table table-condensed" style="border:2px green solid;">
-				
-				
-			 <tbody>
-						  <tr><td >
-							  
+
+
+
+
 							  <button id="checkout-button" class="btn btn-primary btn-xs" ng-click="payAmount()">Pay</button>
 							  
 							  <form id="payment-form" method="POST">
 								  <div class="one-liner">
 									<div id="card-frame">
-									  <!-- Yoco Inline form will be added here -->
 									</div>
 									<button id="pay-button">
 									  PAY ZAR 24.99
@@ -27,20 +16,53 @@
 								  <p class="success-payment-message" />
 								</form>
 
-					</td></tr>
-				</tbody>
-
-			</table>
-
-			</td>
-		</tr>
-		
-						  <tr><td><h6><small><center>Any issues? Contact Gawie...</center></small></h6></td></tr>
-
-	</table>
 
 
 
-</div>
 
-  
+							  <table class="table table-condensed" style="border:0px green solid;">
+								  <thead class="macWS">
+								  <th><small>Product</small></th>
+								  <th><small>Description</small></th>
+
+								  <th><small>Price</small></th>
+								  <th><small>Actions</small></th>
+
+								  </thead>
+
+								  <tbody ng-repeat="product in products|filter:search">
+								  <tr>
+
+										<td>
+												<div class="card thumbnail">
+													<img class="card-img-top shop-image  img-fluid" src="{{ product.imagePath }}" alt="Card image cap">
+												</div>
+										</td>
+									  	<td>
+											  <div class="card-block">
+												  <h4 class="macWS">{{ product.title }}</h4>
+												  <p class="macWS">
+													  {{ product.description }}
+												  </p>
+
+											  </div>
+									  	</td>
+									  	<td>
+											  <div class="clearfix">
+										  		<div class="macWS">{{ product.price }}</div>
+											  </div>
+										</td>
+									  	<td>
+										<!--  <a href="" class="fa fa-file-text-o" ng-click="showM(1,'Legal',getRealIndex(athlete),'1')"></a>
+										  <a href="" class="fa fa-envelope-o" ng-click="showM(2,'Legal',getRealIndex(athlete),'1')"></a>
+										  <a href="" class="fa fa-edit" ng-click="toggleEdit(getRealIndex(athlete))"></a>
+										  <a href=""  class="fa fa-trash-o" ng-click="deleteResource(athlete._id)"></a>
+
+										  //-->
+										  <a href="/cart/add-to-cart/{{product._id}}" class="btn btn-raised btn-success pull-right">
+											  <i class="fa fa-gift" aria-hidden="true"></i> Add to cart
+										  </a>
+									  	</td>
+								  </tbody>
+
+							  </table>
