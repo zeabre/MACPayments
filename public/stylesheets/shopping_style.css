@@ -46,6 +46,14 @@
     border-top-left-radius: 10px;
 }
 
+.thumbnail-race img{
+    width: inherit;
+    height: 75px;
+    object-fit: contain;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
 .thumbnail description {
     color: #7f7f7f;
 }

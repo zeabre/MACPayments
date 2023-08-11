@@ -27,6 +27,12 @@
          access: {restricted: true},
          data: {activeTab: 'shop'}
         })
+        .when('/raceentry', {
+                 templateUrl: 'raceentry.html',
+                 controller: 'RaceEntryController',
+                 access: {restricted: false},
+                 data: {activeTab: 'raceentry'}
+         })
          .when('/mobile', {
          templateUrl: 'mobile.html',
          controller: 'MobileController',
@@ -2340,6 +2346,237 @@ angular.module('scotchApp')
 
 });	 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Race Entry Controller ///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+angular.module('scotchApp')
+	.controller('RaceEntryController',function($scope, $http, SessionService) {
+			var old_index = -10;
+			$scope.thecolor = "green"
+			$scope.bodyText = "";
+			$scope.showModal1 = false;
+			$scope.showModal2 = false;
+
+
+			$scope.hide = function(m){
+				if(m === 1){
+					$scope.showModal1 = false;
+				}else{
+					$scope.showModal2 = false;
+				}
+			}
+
+			$scope.getRealTime = function (duration) {
+				if ( typeof duration != 'undefined' && duration != null) {
+				  var milliseconds = parseInt((duration % 1000) / 100),
+					seconds = Math.floor((duration / 1000) % 60),
+					minutes = Math.floor((duration / (1000 * 60)) % 60),
+					hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+				  hours = (hours < 10) ? "0" + hours : hours;
+				  minutes = (minutes < 10) ? "0" + minutes : minutes;
+				  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+				  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+			  } else {
+				  return "";
+			  }
+			};
+
+			$scope.checkCurrentDate = function(m){
+			//	console.log(m);
+				return true;
+			}
+
+			$scope.showM = function(m,filetype, index, results){
+
+				if(m === 1){
+					$scope.showModal1 	= true;
+					$scope.fileType 	= filetype;
+					$scope.patientID	= $scope.patients[index]._id;
+					$scope.Results		= results;
+
+				}else{
+					$scope.showModal2 = true;
+				}
+			}
+
+			$scope.modalOneShown = function(){
+				console.log('modal one shown');
+			}
+
+			$scope.modalOneHide = function(){
+				console.log('modal one hidden');
+			}
+
+
+
+
+
+
+
+
+		 $http.get('/api/shop')
+  		.success(function(data) {
+					console.log("Shop Controller Scope: " + $scope.user);
+			        console.log("Loading shop");
+
+
+                    $scope.products = data;
+                    $scope.originalProducts = data;
+                    console.log(data);
+
+
+
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+
+
+	$scope.payAmount2 = function() {
+	      var sdk = new window.YocoSDK({
+            publicKey: 'pk_live_602f96d2JvWWGPl576e4'
+          });
+
+          // Create a new dropin form instance
+          var inline = sdk.inline({
+            layout: 'Basid',
+            amountInCents: 2499,
+            currency: 'ZAR'
+          });
+          // this ID matches the id of the element we created earlier.
+          inline.mount('#card-frame');
+    }
+
+
+	$scope.payAmount = function() {
+			var yoco = new window.YocoSDK({
+			publicKey: 'pk_live_602f96d2JvWWGPl576e4'
+		//	publicKey: 'pk_test_71d06dd3JvWWGPl518d4'
+        			  });
+				yoco.showPopup({
+				  amountInCents: 299,
+				  currency: 'ZAR',
+				  name: 'Melkbos Athletic Club Store',
+				  description: 'Test transaction - Gawie',
+				  callback: function (result) {
+					// This function returns a token that your server can use to capture a payment
+					if (result.error) {
+					  const errorMessage = result.error.message;
+					  alert("error occured: " + errorMessage);
+					} else {
+
+					  alert("card successfully tokenised: " + result.id);
+
+
+                     $http.post('/api/payshop', {token:result.id})
+                                .success(function(data) {
+                                    console.log(data);
+
+                                })
+                                .error(function(data) {
+                                    console.log('Error: ' + data);
+                                });
+
+
+
+					}
+					// In a real integration - you would now pass this chargeToken back to your
+					// server along with the order/basket that the customer has purchased.
+				  }
+				})
+
+
+	};
+
+
+
+
+
+
+    $scope.showAppts = function(index){
+		$scope.patients[index].appt = !$scope.patients[index].appt;
+		//alert(JSON.stringify($scope.patients[index].PatientDetails));
+
+    };
+
+
+                // Check for files
+    $scope.findAppts = function(index) {
+		console.log('Loading: patient appts: ' + $scope.patients[index]._id);
+       /* $http.get('/api/uploads2/' + resourceID + "/" + fileType)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+        */
+        return 1;
+    };
+
+
+
+	$scope.lessThan = function(prop, val){
+		return function(item){
+		  return item[prop] < val;
+		}
+	}
+
+    $scope.dateFromISO = function(isostr) {
+			var parts = isostr.match(/\d+/g);
+			return new Date(parts[0], parts[1] -1, parts[2], parts[3], parts[4], parts[5]);
+	}
+
+    $scope.checkDate = function(index){
+
+			var testDate = new Date();
+			var diff = (($scope.dateFromISO($scope.resources[index].LeaveDate) - $scope.dateFromISO(testDate.toISOString()))/60000/60/24);
+
+      if (diff <= 62)
+		{
+			return 1;
+		} else if (diff <= 90 && diff >62)
+		{
+			return 2;
+		}
+    };
+	$scope.showTime = function(theTime) {
+
+		//console.log("theTime: " + theTime);
+
+		if (typeof theTime != 'undefined' & theTime != null) {
+			//console.log(theTime);
+			finalTime = theTime.slice(-13,-5);
+			//finalTime2 = finalTime.slice();
+
+			if (finalTime.slice(0,-6) > 5) {
+
+				finalTime = "00:" + finalTime.slice(-6);
+			}
+
+				;
+
+			return finalTime
+		} else {
+			return "Undefined";
+		}
+
+
+	};
+
+
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Member Photos Controller ///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
