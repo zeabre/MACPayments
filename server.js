@@ -2433,7 +2433,7 @@ async function WrapSendMail(){
 ///////////////////////////////////
 
 
-    app.get('/api/shop', function(req, res, next) {
+    app.get('/api/raceentry', function(req, res, next) {
         // use mongoose to get all questions in the database
                Product.find(function(err, products) {
 

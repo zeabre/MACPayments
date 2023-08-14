@@ -91,50 +91,11 @@
 
 
 						<div class="container" style="padding:0px;border:0px white solid;">
-
-								
-														<div ng-controller="LoginController" style="border:0px white solid;padding:0px;">
-
-
-							 
-
-																			<nav class="navbar navbar-default" style="background-color:white;padding:0px;border:0px white solid;" >
-																						<div class="container-fluid" style="background-color:white;border:0px white solid;padding:0px;">
-
-																													<div ng-if="loggedin_user !=''">
-
-																														<div ng-if="isMobile < 0" class="macWS">
-																																<ul class="nav navbar-nav navbar-right" >
-																																	<li><a href="#membermain"><i class="fa fa-user-circle-o"></i> Main</a></li>
-																																	<li><a href="#memberprofile"><i class="fa fa-male"></i> Profile</a></li>
-																																	<li><a href="#memberdocuments"><i class="fa fa-book"></i> Documents</a></li>
-																																	<li><a href="#memberhistory"><i class="fa fa-archive"></i> History</a></li>
-																																	<li><a href="#memberphotos"><i class="fa fa-camera"></i> Photos</a></li>
-																																	<li><a href="#shop"><i class="fa fa-shopping-basket"></i> Shop</a></li>
-
-
-																																	<ul class="nav navbar-nav navbar-right">
-
-																																	  <li><a href="#logout"><i class="fa fa-sign-out"></i> Logout</a></li>
-																																	  <li>&nbsp;&nbsp;&nbsp;</li>
-																																	</ul>
-																																</ul>
-																														</div>
-
-																													
-																													</div>         
-																						</div>
-																			</nav>
-																											<div id="index">
-																												<div ng-view></div>
-
-																											</div>
-
-
-
+							<div ng-controller="RaceEntryController" style="border:0px white solid;padding:0px;">
+								<div id="index">
+										<div ng-view></div>
 								</div>
-								
-
+							</div>
 						</div>
 
 

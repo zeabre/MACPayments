@@ -17,8 +17,88 @@
 								</form>
 
 
+							  <div id="member-form" class="macWS">
+								  <div class="col-sm-8 col-sm-offset-2 text-center">
+									  <form>
+										  <div class="form-group">
+
+											  <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+											  <table class="table table-condensed">
+												  <tr>
+													  <td>ID Number</td>
+													  <td>
+														  <input disabled type="text" name="ID" class="form-control input-sm text-center" placeholder="Member ID" ng-model="members.mb_ID">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>Title</small></h6></td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member Title" ng-model="members.mb_title">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>First Name</small></h6></td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member First Name" ng-model="members.mb_fname">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>Surname</small></h6></td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member Last Name" ng-model="members.mb_sname">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>Email Address</td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member Email" ng-model="members.mb_email">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>Cell Number</td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member Tel Number" ng-model="members.mb_telnum">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>Address</td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member Address" ng-model="members.mb_address">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>ASA Number</td>
+													  <td>
+
+														  <input type="text" class="form-control input-sm text-center" placeholder="Member ASA" ng-model="members.mb_ASA">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>MAC Tag Number</td>
+													  <td>
+														  <input disabled type="text" class="form-control input-sm text-center" placeholder="Member Tag" ng-model="members.mb_tag">
+													  </td>
+												  </tr>
+												  <tr>
+													  <td>5km Average</td>
+													  <td>
+														  <input type="text" class="form-control input-sm text-center" date="HH:mm:ss" placeholder="Member 5km Avg" ng-model="members.mb_5kmAvg">
 
 
+													  </td>
+												  </tr>
+
+
+											  </table>
+											  <div><input class="btn md-button"  type="submit" ng-click="updateMember()" value="Update"/><button class="btn md-button" ng-click="reload()">Cancel</button>
+											  </div>
+										  </div>
+
+
+
+									  </form>
+								  </div>
+							  </div>
 
 							  <table class="table table-condensed" style="border:0px green solid;">
 								  <thead class="macWS">

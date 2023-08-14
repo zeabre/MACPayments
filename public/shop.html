@@ -18,7 +18,36 @@
 
 
 
+							  <div id="member-form" class="row">
+								  <div class="col-sm-8 col-sm-offset-2 text-center">
+									  <form>
+										  <div class="form-group">
 
+											  <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+											  <input type="text" name="ID" class="form-control input-sm text-center" placeholder="Member ID" ng-model="formData.mb_ID"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Title" ng-model="formData.mb_title"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member First Name" ng-model="formData.mb_fname"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Last Name" ng-model="formData.mb_sname"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Email" ng-model="formData.mb_email"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Tel Number" ng-model="formData.mb_telnum"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Address" ng-model="formData.mb_address"></br>
+
+
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member ASA" ng-model="formData.mb_ASA"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member Tag" ng-model="formData.mb_tag"></br>
+											  <input type="text" class="form-control input-sm text-center" placeholder="Member 5km Avg" ng-model="formData.mb_5kmAvg"></br>
+
+
+										  </div>
+
+										  <!-- createToDo() WILL CREATE NEW TODOS -->
+										  <button type="submit" class="btn btn-primary btn-xs" ng-click="createMember()">Add</button>
+									  </form>
+								  </div>
+
+
+
+							  </div>
 
 							  <table class="table table-condensed" style="border:0px green solid;">
 								  <thead class="macWS">
